@@ -46,15 +46,3 @@ public class Bom {
         this.order_id = order_id;
     }
 }
-
-
-
-
-
-
-
-
-
-
-}
-

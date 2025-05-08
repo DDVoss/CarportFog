@@ -13,7 +13,6 @@ public class RoutingController {
         app.get("index", ctx -> ctx.render("index.html"));
         app.get("size", ctx -> ctx.render("size.html"));
         app.get("customer-information", ctx -> ctx.render("customer-information.html"));
-
         app.get("plan-drawing", ctx -> ctx.render("plan-drawing.html"));
 
         //posts

@@ -37,7 +37,7 @@
                     <label class="radio-option">
                         <input type="radio" name="rooftype" value="skråtag"/>
                         <div class="option-label">
-                            <img class="roof-images" src="/public/images/pitched-roof.png" alt="Skråtag" th:src="@{/images/pitched-roof}">
+                            <img class="roof-images" src="/public/images/pitched-roof.png" alt="Skråtag" th:src="@{/images/pitched-roof.png}">
                             <div><strong>Skråtag</strong></div>
                         </div>
                     </label>
@@ -52,9 +52,7 @@
                 </div>
 
                 <div style="display: flex ;justify-content: center">
-                    <button type="submit">
-                        <a href="size.html" th:href="@{/size}">Kom i gang</a>
-                    </button>
+                        <a class="button-link" href="size.html" th:href="@{/size}">Kom i gang</a>
                 </div>
             </form>
         </div>
