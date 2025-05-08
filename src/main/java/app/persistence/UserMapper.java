@@ -15,7 +15,7 @@ public class UserMapper {
 
     // Create
     public static void createUser(User user) throws DatabaseException {
-        String sql = "INSERT INTO users (first_name, last_name, phone_nr, email, user_role, address, zip)" +
+        String sql = "INSERT INTO users (first_name, last_name, phone_nr, email, address, zip)" +
                 "VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING user_id";
 
         try (Connection connection = connectionPool.getConnection();
@@ -25,9 +25,8 @@ public class UserMapper {
             ps.setString(2, user.getLastName());
             ps.setInt(3, user.getPhoneNumber());
             ps.setString(4, user.getEmail());
-            ps.setString(5, user.getRole());
-            ps.setString(6, user.getAddress());
-            ps.setInt(7, user.getZip());
+            ps.setString(5, user.getAddress());
+            ps.setInt(6, user.getZip());
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -55,7 +54,7 @@ public class UserMapper {
 
     // Update full user
     public static void updateUser(User user) throws DatabaseException {
-        String sql = "UPDATE users SET first_name = ?, last_name = ?, phone_nr = ?, email = ?, user_role = ?, address = ?, zip = ? WHERE email = ?";
+        String sql = "UPDATE users SET first_name = ?, last_name = ?, phone_nr = ?, email = ?, address = ?, zip = ? WHERE email = ?";
 
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -64,10 +63,9 @@ public class UserMapper {
             ps.setString(2, user.getLastName());
             ps.setInt(3, user.getPhoneNumber());
             ps.setString(4, user.getEmail());
-            ps.setString(5, user.getRole());
-            ps.setString(6, user.getAddress());
-            ps.setInt(7, user.getZip());
-            ps.setString(8, user.getEmail());
+            ps.setString(5, user.getAddress());
+            ps.setInt(6, user.getZip());
+            ps.setString(7, user.getEmail());
 
             ps.executeUpdate();
         } catch (SQLException e) {
