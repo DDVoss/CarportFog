@@ -48,7 +48,7 @@
             <p> Felter markeret med <span style="color: red">*</span> SKAL udfyldes!</p>
 
             <!-- Fill form action if needed -->
-            <form action="" method="post">
+            <form action="/size" method="post">
                 <div class="form-group">
                     <label for="cwidth">Carport bredde <span style="color: red">*</span></label>
                     <select id="cwidth" name="width">
@@ -71,11 +71,14 @@
                         <option value="valg2">valg2</option>
                     </select>
                 </div>
+
+                <button type="submit">Videre</button>
+
             </form>
 
             <button onclick="toolShedShow()">Redskabskur tilvalg</button>
 
-            <form action="" method="post">
+
                 <div class="form-group" id="toolshed-div">
                     <div>
                         <label for="twidth">Redskabskur bredde <span style="color: red">*</span></label>
@@ -96,20 +99,8 @@
                         </select>
                     </div>
                 </div>
-            </form>
 
-            <div class="form-button-align">
-                <form action="" method="GET">
-                    <button type="submit" class="active">
-                        <a href="index.html" th:href="@{/index}">Tilbage</a>
-                    </button>
-                </form>
-                <form action="" method="GET">
-                    <button type="submit" class="active">
-                        <a href="plan-drawing.html" th:href="@{/plan-drawing}">Videre</a>
-                    </button>
-                </form>
-            </div>
+
 
             <!-- Small script that hides the toolshed option -->
 
