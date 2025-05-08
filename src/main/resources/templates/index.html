@@ -3,29 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="/public/css/index.css" th:href="@{/css/index.css}" rel="stylesheet" />
+    <link href="/public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
     <title>Fog - QuickByg</title>
 </head>
 <body>
+<div class="page-wrapper">
 
-<header>
-    <div th:insert="~{fragments/header :: header}"></div>
-</header>
+        <div th:insert="~{fragments/header :: header}"></div>
 
-<main>
+    <main>
 
-    <img class="top-image" src="/public/img/byg-selv-carporte.png" alt="En flot carport" />
+        <img class="index-top-image" src="/public/images/byg-selv-carporte.png" alt="En flot carport" th:src="@{/images/byg-selv-carporte.png}"/>
 
-    <div class="container-box-frame">
-        <div class="box-frame">
-            <h1>Lad os tegne din carport drøm - bestil et Quick-Byg tilbud</h1>
+        <div id="main-content">
 
-            <div>
+            <div class="index-info-box">
+                <h1>Lad os tegne din carport drøm - bestil et Quick-Byg tilbud</h1>
                 <p>
-                    Med et specialudviklet computerprogram kan vi lynhurtigt beregne prisen og udskrive en skitsetegning på en carport<br>
-                    indenfor vores standardprogram.<br>
-                    Tilbud og skitsetegning fremsendes på mail hurtigst muligt.<br>
-                    Ved bestilling medfølger standardbyggevejledning.<br><br>
+                    Med et specialudviklet computerprogram kan vi lynhurtigt beregne prisen og udskrive en skitsetegning
+                    på en carport<br>
+                    indenfor vores standardprogram.
+                    Tilbud og skitsetegning fremsendes på mail hurtigst muligt.
+                    Ved bestilling medfølger standardbyggevejledning.
+
+                </p>
+                <p>
                     Vælg nedenfor, om du ønsker tilbud på carport med fladt tag eller carport med høj rejsning.
                 </p>
             </div>
@@ -33,34 +35,34 @@
             <form action="/" method="post">
                 <div class="options">
                     <label class="radio-option">
-                        <input type="radio" name="rooftype" value="skråtag" />
+                        <input type="radio" name="rooftype" value="skråtag"/>
                         <div class="option-label">
-                            <img class="roof-images" src="/public/img/pitched-roof.png" alt="Skråtag">
+                            <img class="roof-images" src="/public/images/pitched-roof.png" alt="Skråtag" th:src="@{/images/pitched-roof}">
                             <div><strong>Skråtag</strong></div>
                         </div>
                     </label>
 
                     <label class="radio-option">
-                        <input type="radio" name="rooftype" value="fladttag" />
+                        <input type="radio" name="rooftype" value="fladttag"/>
                         <div class="option-label">
-                            <img class="roof-images" src="/public/img/flat-roof.png" alt="Fladt tag">
+                            <img class="roof-images" src="/public/images/flat-roof.png" alt="Fladt tag" th:src="@{/images/flat-roof.png}">
                             <div><strong>Fladt tag</strong></div>
                         </div>
                     </label>
                 </div>
 
-                <div class="container-button">
-                    <button type="submit">Kom i gang</button>
+                <div style="display: flex ;justify-content: center">
+                    <button type="submit">
+                        <a href="size.html" th:href="@{/size}">Kom i gang</a>
+                    </button>
                 </div>
             </form>
         </div>
-    </div>
 
-</main>
+    </main>
 
-<footer>
-    <div th:insert="~{fragments/footer :: footer}"></div>
-</footer>
+        <div th:insert="~{fragments/footer :: footer}"></div>
 
+</div>
 </body>
 </html>
