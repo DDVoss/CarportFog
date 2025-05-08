@@ -66,12 +66,17 @@
 
       <div class="form-button-align">
         <form action="" method="GET">
-          <button type="submit" class="active">Tilbage</button>
+          <button type="submit" class="active">
+            <a href="plan-drawing.html" th:href="@{/plan-drawing}">Tilbage</a>
+          </button>
         </form>
         <form action="" method="GET">
-          <button type="submit" class="active">Videre</button>
+          <button type="submit" class="active">
+            <a href="summary.html" th:href="@{/summary}">Videre</a>
+          </button>
         </form>
       </div>
+
     </div>
   </main>
   <div th:insert="~{fragments/footer :: footer}"></div>

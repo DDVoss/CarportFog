@@ -34,20 +34,22 @@ li {
     flex-direction: column;
     min-height: 100vh;
 }
-
 button  {
     background-color: #003D76;
-    color: #FFFFFF;
     border: none;
-    padding: 6px 22px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
     font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
-
 }
+
+button a    {
+    color: #FFFFFF;
+    padding: 6px 22px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
 button:hover    {
     background-color: #004585;
 }
@@ -270,4 +272,70 @@ input[type="text"], input[type="tel"], input[type="email"] {
 
 .line-connect.finish-line {
     background-color: #003D76;
+}
+
+/* Radio button styling */
+
+input[type="radio"] {
+    display: none;
+}
+
+.radio-option {
+    display: flex;
+    padding: 0.75em 1em;
+}
+
+.option-label {
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    font-size: small;
+    cursor: pointer;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="radio"]:checked + .option-label {
+    border-color: #00406B ;
+    box-shadow: 0 0 8px rgba(0, 64, 128, 0.3);
+}
+
+.options {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin: 30px;
+}
+
+/* Icon image styling */
+
+.roof-images {
+    height: 100px;
+    width: 100px;
+    margin-bottom: 5px;
+    object-fit: contain;
+}
+
+/* Image styling */
+
+.index-top-image {
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+    max-width: 600px;
+    height: auto;
+}
+
+.index-info-box {
+    display: flex;
+    width: 45vw;
+    flex-direction: column;
+    margin: 15px auto;
+    text-align: left;
+    justify-content: center;
+
 }

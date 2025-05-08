@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>Fog - QuickByg</title>
-    <link href="../../public/css/summary.css" th:href="@{/css/summary.css}" rel="stylesheet"/>
+    <link href="../../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
 </head>
 <body>
 <div class="page-wrapper">
@@ -100,10 +100,14 @@
 
             <div class="form-button-align">
                 <form action="" method="GET">
-                    <button type="submit" class="active">Tilbage</button>
+                    <button type="submit" class="active">
+                        <a href="index.html" th:href="@{/index}">Tilbage</a>
+                    </button>
                 </form>
                 <form action="" method="GET">
-                    <button type="submit" class="active">Videre</button>
+                    <button type="submit" class="active">
+                        <a href="plan-drawing.html" th:href="@{/plan-drawing}">Videre</a>
+                    </button>
                 </form>
             </div>
 
