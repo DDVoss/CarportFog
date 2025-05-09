@@ -2,6 +2,8 @@ package app.persistence;
 
 import app.exceptions.DatabaseException;
 import app.entities.User;
+
+import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,8 +17,13 @@ public class UserMapper {
 
     // Create
     public static void createUser(User user) throws DatabaseException {
-        String sql = "INSERT INTO users (first_name, last_name, phone_nr, email, address, zip)" +
-                "VALUES (?, ?, ?, ?, ?, ?) RETURNING user_id";
+
+        String password = generateRandomPassword(8);
+        user.setPassword(password);
+
+
+        String sql = "INSERT INTO users (first_name, last_name, phone_nr, email, address, zip, password)" +
+                "VALUES (?, ?, ?, ?, ?, ?,?) RETURNING user_id";
 
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -27,6 +34,7 @@ public class UserMapper {
             ps.setString(4, user.getEmail());
             ps.setString(5, user.getAddress());
             ps.setInt(6, user.getZip());
+            ps.setString(7, user.getPassword());
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -99,5 +107,45 @@ public class UserMapper {
         }
         return users;
     }
+    public static User getUserByEmail(String email) throws DatabaseException {
+        String sql = "SELECT * FROM users WHERE email = ?";
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setString(1, email);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int id = rs.getInt("user_id");
+                    String firstName = rs.getString("first_name");
+                    String lastName = rs.getString("last_name");
+                    int phoneNumber = rs.getInt("phone_nr");
+                    String role = rs.getString("user_role");
+                    String address = rs.getString("address");
+                    int zip = rs.getInt("zip");
+
+                    return new User(id, firstName, lastName, email, phoneNumber, role, address, zip);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException(e, "Error fetching user by email");
+        }
+        return null;
+    }
+
+    private static String generateRandomPassword(int length) {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        SecureRandom SR = new SecureRandom();
+        StringBuilder SB = new StringBuilder();
+
+        for (int i = 0; i < length; i++) {
+            SB.append(chars.charAt(SR.nextInt(chars.length())));
+        }
+
+        return SB.toString();
+    }
+
+
 
 }

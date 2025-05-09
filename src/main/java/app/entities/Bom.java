@@ -45,4 +45,5 @@ public class Bom {
     public void setOrderId(int order_id) {
         this.order_id = order_id;
     }
+
 }
