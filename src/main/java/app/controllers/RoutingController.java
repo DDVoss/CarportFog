@@ -40,6 +40,10 @@ public class RoutingController {
         });
 
 
+        //get
+
+
+
         app.get("/size", ctx -> {
             Map<String, Object> model = new HashMap<>();
             Map<String, String> sizeInfo = ctx.sessionAttribute("sizeInfo");

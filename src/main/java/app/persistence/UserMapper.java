@@ -16,14 +16,15 @@ import static app.Main.connectionPool;
 public class UserMapper {
 
     // Create
+    /*
     public static void createUser(User user) throws DatabaseException {
 
         String password = generateRandomPassword(8);
         user.setPassword(password);
 
 
-        String sql = "INSERT INTO users (first_name, last_name, phone_nr, email, address, zip,isAdmin, password)" +
-                "VALUES (?, ?, ?, ?, ?, ?,?,?) RETURNING user_id";
+        String sql = "INSERT INTO users (first_name, last_name, phone_nr, email, address, zip)" +
+                "VALUES (?, ?, ?, ?, ?, ?) RETURNING user_id";
 
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -34,13 +35,33 @@ public class UserMapper {
             ps.setString(4, user.getEmail());
             ps.setString(5, user.getAddress());
             ps.setInt(6, user.getZip());
-            ps.setString(7, user.getPassword());
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     user.setUserId(rs.getInt("user_id"));
                 }
             }
+        } catch (SQLException e) {
+            throw new DatabaseException(e, "Error inserting user");
+        }
+    }
+     */
+
+    public static void createUser(String firstName, String lastName, Integer phone, String email, String address, Integer zip) throws DatabaseException {
+        String sql = "insert into users (first_name, last_name, phone_nr, email, address, zip) values (?,?,?,?,?,?)";
+
+        try(    Connection connection = connectionPool.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)
+        )
+        {
+            ps.setString(1, firstName);
+            ps.setString(2, lastName);
+            ps.setInt(3, phone);
+            ps.setString(4, email);
+            ps.setString(5, address);
+            ps.setInt(6, zip);
+
+
         } catch (SQLException e) {
             throw new DatabaseException(e, "Error inserting user");
         }
