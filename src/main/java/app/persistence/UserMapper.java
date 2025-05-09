@@ -22,8 +22,8 @@ public class UserMapper {
         user.setPassword(password);
 
 
-        String sql = "INSERT INTO users (first_name, last_name, phone_nr, email, address, zip, password)" +
-                "VALUES (?, ?, ?, ?, ?, ?,?) RETURNING user_id";
+        String sql = "INSERT INTO users (first_name, last_name, phone_nr, email, address, zip,isAdmin, password)" +
+                "VALUES (?, ?, ?, ?, ?, ?,?,?) RETURNING user_id";
 
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -62,7 +62,7 @@ public class UserMapper {
 
     // Update full user
     public static void updateUser(User user) throws DatabaseException {
-        String sql = "UPDATE users SET first_name = ?, last_name = ?, phone_nr = ?, email = ?, address = ?, zip = ? WHERE email = ?";
+        String sql = "UPDATE users SET first_name = ?, last_name = ?, phone_nr = ?, email = ?, address = ?, zip = ?, isAdmin = ?, password = ? WHERE email = ?";
 
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -73,7 +73,8 @@ public class UserMapper {
             ps.setString(4, user.getEmail());
             ps.setString(5, user.getAddress());
             ps.setInt(6, user.getZip());
-            ps.setString(7, user.getEmail());
+            ps.setBoolean(7),user.isAdmin()
+            ps.setString(8, user.getPassword());
 
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -96,11 +97,12 @@ public class UserMapper {
                 String lastName = rs.getString("last_name");
                 String email = rs.getString("email");
                 int phoneNumber = rs.getInt("phone_nr");
-                String role = rs.getString("user_role");
                 String address = rs.getString("address");
                 int zip = rs.getInt("zip");
+                boolean isAdmin = rs.getBoolean("is_admin");
+                String password = rs.getString("password");
 
-                users.add(new User(id, firstName, lastName, email, phoneNumber, role, address, zip));
+                users.add(new User(id, firstName, lastName, email, phoneNumber, address, zip,isAdmin,password));
             }
             } catch (SQLException e) {
             throw new DatabaseException(e, "Error retrieving users");
@@ -121,11 +123,13 @@ public class UserMapper {
                     String firstName = rs.getString("first_name");
                     String lastName = rs.getString("last_name");
                     int phoneNumber = rs.getInt("phone_nr");
-                    String role = rs.getString("user_role");
                     String address = rs.getString("address");
                     int zip = rs.getInt("zip");
+                    boolean isAdmin = rs.getBoolean("is_admin");
+                    String password = rs.getString("password");
 
-                    return new User(id, firstName, lastName, email, phoneNumber, role, address, zip);
+
+                    return new User(id, firstName, lastName, email, phoneNumber, address, zip,isAdmin,password);
                 }
             }
         } catch (SQLException e) {
