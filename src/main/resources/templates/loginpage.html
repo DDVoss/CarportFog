@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <title>Login - QuickByg</title>
+</head>
+<body>
+<div class="page-wrapper">
+
+    <div th:insert="~{fragments/header :: header}"></div>
+
+    <main>
+        <div id="main-content">
+            <div class="index-info-box">
+                <h1>Din FogProfil</h1>
+                <p>Indtast din e-mail og adgangskode for at logge ind.</p>
+            </div>
+
+            <div class="login-container">
+
+                <p th:if="${error}" th:text="${error}" class="error-message"></p>
+
+
+                <form action="/login" method="post" class="login-form">
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" required placeholder="din@email.dk">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Adgangskode</label>
+                        <input type="password" id="password" name="password" required placeholder="••••••••">
+                    </div>
+
+                    <div class="form-submit">
+                        <button type="submit">Log ind</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <div th:insert="~{fragments/footer :: footer}"></div>
+
+</div>
+</body>
+</html>
