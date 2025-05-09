@@ -96,7 +96,7 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber=" + phoneNumber +
-                ", role='" + role + '\'' +
+                ", isAdmin='" + isAdmin + '\'' +
                 ", address='" + address + '\'' +
                 ", zip=" + zip +
                 '}';
