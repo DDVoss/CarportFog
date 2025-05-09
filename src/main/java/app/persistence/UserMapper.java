@@ -73,7 +73,7 @@ public class UserMapper {
             ps.setString(4, user.getEmail());
             ps.setString(5, user.getAddress());
             ps.setInt(6, user.getZip());
-            ps.setBoolean(7),user.isAdmin()
+            ps.setBoolean(7,user.isAdmin());
             ps.setString(8, user.getPassword());
 
             ps.executeUpdate();
