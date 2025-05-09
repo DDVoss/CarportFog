@@ -43,56 +43,23 @@
 
     <div id="main-content">
 
-      <h1>Vælg materialer</h1>
-      <p>Udfyld nedenstående omhyggeligt og tryk "Videre".</p>
-      <p> Felter markeret med <span style="color: red">*</span> SKAL udfyldes!</p>
+      <h1>Bekræft størrelse</h1>
+      <p>Her er den overliggende plan for hvordan din carport vil se ud, med din nuværende indtastet information.</p>
+      <p>Vis målene ikke er rigtige kan du trykke på tilbage og prøve igen</p>
 
       <!-- Fill form action if needed -->
       <form action="" method="post">
-        <div class="form-group">
-          <label for="building-post">Stolper <span style="color: red">*</span></label>
-          <select id="building-post" name="post">
-            <option hidden=""></option>
-            <option value="post1">post1</option>
-            <option value="post2">post2</option>
-            <option value="post3">post3</option>
-          </select>
-          <label for="building-beam">Spær <span style="color: red">*</span></label>
-          <select id="building-beam" name="beam">
-            <option hidden=""></option>
-            <option value="beam1">beam1</option>
-            <option value="beam2">beam2</option>
-            <option value="beam3">beam3</option>
-          </select>
-          <label for="building-rafter">Remme <span style="color: red">*</span></label>
-          <select id="building-rafter" name="rafter">
-            <option hidden=""></option>
-            <option value="rafter1">rafter1</option>
-            <option value="rafter2">rafter2</option>
-            <option value="rafter4">rafter4</option>
-          </select>
-          <label for="building-fascia">Stern<span style="color: red">*</span></label>
-          <select id="building-fascia" name="fascia">
-            <option hidden=""></option>
-            <option value="fascia1">fascia1</option>
-            <option value="fascia2">fascia2</option>
-            <option value="fascia3">fascia3</option>
-          </select>
-        </div>
-      </form>
 
-      <div class="form-button-align">
-        <form action="" method="GET">
-          <button type="submit" class="active">
-            <a href="size.html" th:href="@{/size}">Tilbage</a>
-          </button>
-        </form>
-        <form action="" method="GET">
-          <button type="submit" class="active">
+        <!-- Plan drawing TBA *excited noises* -->
+
+        <div class="form-button-align">
+          <a href="size.html" th:href="@{/size}" class="button-link">Tilbage</a>
+          <button type="submit" >
             <a href="customer-information.html" th:href="@{/customer-information}">Videre</a>
           </button>
-        </form>
-      </div>
+        </div>
+
+      </form>
 
     </div>
   </main>

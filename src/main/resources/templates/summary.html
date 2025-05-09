@@ -55,12 +55,11 @@
                 <div class="container-box">
                     <h2>Personlige Oplysninger</h2>
                     <div class="customer-information">
-                        <p>Email: <span th:text="${placeholder}"></span></p>
-                        <p>Fornavn: <span th:text="${placeholder}"></span></p>
-                        <p>Efternavn: <span th:text="${placeholder}"></span></p>
-                        <p>Telefon: <span th:text="${placeholder}"></span></p>
-                        <p>Postnr: <span th:text="${placeholder}"></span></p>
-                        <p>By: <span th:text="${placeholder}"></span></p>
+                        <p>Fornavn: <span th:text="${perInfo.fname}"></span></p>
+                        <p>Efternavn: <span th:text="${perInfo.lname}"></span></p>
+                        <p>Telefon: <span th:text="${perInfo.phone}"></span></p>
+                        <p>Email: <span th:text="${perInfo.email}"></span></p>
+                        <p>Postnr: <span th:text="${perInfo.zip}"></span></p>
                         <a href="customer-information.html">Ret oplysninger</a>
                     </div>
                 </div>
@@ -71,17 +70,17 @@
                         <p>Bredde: <span th:text="${sizeInfo.width}"></span></p>
                         <p>Længde: <span th:text="${sizeInfo.length}"></span></p>
                         <p>trapeztag: <span th:text="${sizeInfo.trapez}"></span></p>
-                        <a href="size.html">Ret oplysninger</a>
+                        <a href="size.html" th:href="@{/size}">Ret oplysninger</a>
                     </div>
                 </div>
 
                 <div class="container-box">
                     <h2>Materialer</h2>
                     <div class="materials">
-                        <p>Stolper: <span th:text="${placeholder}"></span></p>
-                        <p>Spær: <span th:text="${placeholder}"></span></p>
-                        <p>Remme: <span th:text="${placeholder}"></span></p>
-                        <p>Stern: <span th:text="${placeholder}"></span></p>
+                        <p>Stolper: <span>-</span></p>
+                        <p>Spær: <span >-</span></p>
+                        <p>Remme: <span >-</span></p>
+                        <p>Stern: <span>-</span></p>
                         <a href="material.html">Ret oplysninger</a>
                     </div>
                 </div>
