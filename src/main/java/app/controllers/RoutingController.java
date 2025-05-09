@@ -23,6 +23,18 @@ public class RoutingController {
             sizeInfo.put("length", ctx.formParam("length"));
             sizeInfo.put("trapez", ctx.formParam("trapez"));
             ctx.sessionAttribute("sizeInfo", sizeInfo);
+            ctx.redirect("/plan-drawing");
+        });
+
+        app.post("/personal", ctx -> {
+            Map<String, String> perInfo = new HashMap<>();
+            perInfo.put("fname", ctx.formParam("fname"));
+            perInfo.put("lname", ctx.formParam("lname"));
+            perInfo.put("phone", ctx.formParam("phone"));
+            perInfo.put("email", ctx.formParam("email"));
+            perInfo.put("address", ctx.formParam("adress"));
+            perInfo.put("zip", ctx.formParam("zip"));
+            ctx.sessionAttribute("perInfo", perInfo);
             ctx.redirect("/summary");
         });
 

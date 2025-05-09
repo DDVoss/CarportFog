@@ -214,7 +214,7 @@ select, input   {
     cursor: pointer;
 }
 
-input[type="text"], input[type="tel"], input[type="email"] {
+input[type="text"], input[type="tel"], input[type="email"], input[type="number"] {
     cursor: text;
 }
 

@@ -55,12 +55,11 @@
                 <div class="container-box">
                     <h2>Personlige Oplysninger</h2>
                     <div class="customer-information">
-                        <p>Email: <span th:text="${placeholder}"></span></p>
                         <p>Fornavn: <span th:text="${placeholder}"></span></p>
                         <p>Efternavn: <span th:text="${placeholder}"></span></p>
                         <p>Telefon: <span th:text="${placeholder}"></span></p>
+                        <p>Email: <span th:text="${placeholder}"></span></p>
                         <p>Postnr: <span th:text="${placeholder}"></span></p>
-                        <p>By: <span th:text="${placeholder}"></span></p>
                         <a href="customer-information.html">Ret oplysninger</a>
                     </div>
                 </div>
@@ -78,8 +77,8 @@
                 <div class="container-box">
                     <h2>Materialer</h2>
                     <div class="materials">
-                        <p>Stolper: <span th:text="${placeholder}"></span></p>
-                        <p>Spær: <span th:text="${placeholder}"></span></p>
+                        <p>Stolper: <span th:text="${perInfo.fname}"></span></p>
+                        <p>Spær: <span th:text="${perInfo.}"></span></p>
                         <p>Remme: <span th:text="${placeholder}"></span></p>
                         <p>Stern: <span th:text="${placeholder}"></span></p>
                         <a href="material.html">Ret oplysninger</a>
