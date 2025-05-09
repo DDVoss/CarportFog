@@ -32,5 +32,8 @@ public class RoutingController {
             model.put("sizeInfo", ctx.sessionAttribute("sizeInfo")); // Ensure session data is available
             ctx.render("summary.html", model);
         });
+
+
+
     }
 }
