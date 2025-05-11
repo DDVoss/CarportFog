@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import static app.controllers.UserController.createCustomerAndOrder;
+
 public class RoutingController {
     public static void addRoutes(Javalin app, ConnectionPool connectionPool) {
         // render
@@ -17,6 +19,8 @@ public class RoutingController {
         app.get("plan-drawing", ctx -> ctx.render("plan-drawing.html"));
 
         //posts
+
+        app.post("createCustomerAndOrder", ctx -> createCustomerAndOrder(ctx, connectionPool));
 
         app.post("/size", ctx -> {
             Map<String, String> sizeInfo = new HashMap<>();

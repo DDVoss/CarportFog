@@ -4,10 +4,7 @@ import app.exceptions.DatabaseException;
 import app.entities.User;
 
 import java.security.SecureRandom;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,11 +44,11 @@ public class UserMapper {
     }
      */
 
-    public static void createUser(String firstName, String lastName, Integer phone, String email, String address, Integer zip) throws DatabaseException {
+    public static int createUser(String firstName, String lastName, Integer phone, String email, String address, Integer zip) throws DatabaseException {
         String sql = "insert into users (first_name, last_name, phone_nr, email, address, zip) values (?,?,?,?,?,?)";
 
-        try(    Connection connection = connectionPool.getConnection();
-                PreparedStatement ps = connection.prepareStatement(sql)
+        try(Connection connection = connectionPool.getConnection();
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         )
         {
             ps.setString(1, firstName);
@@ -61,7 +58,18 @@ public class UserMapper {
             ps.setString(5, address);
             ps.setInt(6, zip);
 
+            int affectedRows = ps.executeUpdate();
 
+            if (affectedRows == 0)  {
+                throw new DatabaseException("Creating user failed, no rows affected");
+
+            } try (ResultSet rs = ps.getGeneratedKeys())    {
+                if(rs.next())   {
+                    return rs.getInt(1);
+                } else {
+                    throw new DatabaseException("Creating user failed, no ID obtained");
+                }
+        }
         } catch (SQLException e) {
             throw new DatabaseException(e, "Error inserting user");
         }

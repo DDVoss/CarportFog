@@ -12,6 +12,7 @@ import static app.Main.connectionPool;
 
 public class OrderMapper {
 
+    /*
     // Create a new order and return the generated order_id
     public static int createOrder(Order order) throws DatabaseException, SQLException {
         String sql = "INSERT INTO orders (user_id, total_price, order_date, order_status, width, length) " +
@@ -39,9 +40,25 @@ public class OrderMapper {
 
         }
     }
+     */
+
+    public static void createOrder(int userId, int width, int length) throws DatabaseException  {
+        String sql = "INSERT INTO orders (user_id, width, length) VALUES (?, ?, ?)";
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql))  {
+
+            ps.setInt(1, userId);
+            ps.setInt(2, width);
+            ps.setInt(3, length);
+
+            ps.executeUpdate();
+        } catch (SQLException e)  {
+            throw new DatabaseException(e, "Error inserting order");
+        }
+    }
 
 
-    // Update full user
     public static void updateOrder(Order order) throws DatabaseException {
         String sql = "UPDATE orders SET user_id = ?, total_price = ?, order_date = ?, order_status = ?, width = ?, length = ? WHERE order_id = ?";
 
@@ -61,7 +78,7 @@ public class OrderMapper {
         }
     }
 
-    // Read: get all users
+
     public static List<Order> getAllOrders() throws DatabaseException {
         List<Order> orders= new ArrayList<>();
         String sql = "SELECT * FROM orders";

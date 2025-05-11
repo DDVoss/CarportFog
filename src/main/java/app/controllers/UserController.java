@@ -3,6 +3,7 @@ package app.controllers;
 import app.entities.User;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
+import app.persistence.OrderMapper;
 import app.persistence.UserMapper;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
@@ -31,6 +32,7 @@ public class UserController {
     };
 
     public static  void createCustomerAndOrder(Context ctx, ConnectionPool connectionPool)  {
+        /* customer data */
         String firstName = ctx.formParam("fname");
         String lastName = ctx.formParam("lname");
         Integer phone = Integer.parseInt(ctx.formParam("phone"));
@@ -38,12 +40,18 @@ public class UserController {
         String address = ctx.formParam("address");
         Integer zip = Integer.parseInt(ctx.formParam("zip"));
 
-        try {
-            UserMapper.createUser(firstName, lastName, phone, email, address, zip);
+        /* order data */
+        Integer width = Integer.parseInt(ctx.formParam("width"));
+        Integer length = Integer.parseInt(ctx.formParam("length"));
 
+        try {
+            int userId = UserMapper.createUser(firstName, lastName, phone, email, address, zip);
+            OrderMapper.createOrder(userId, width, length);
+
+            ctx.render("index.html");
         } catch (DatabaseException e)   {
             ctx.attribute("error", "Database fejl prøv venligst igen");
-            ctx.render("summary.html");
+            ctx.render("summary.html"); /* Should be changed to the receipt site (receipt site not created yet)*/
         }
     }
 
