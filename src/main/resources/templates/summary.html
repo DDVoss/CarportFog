@@ -25,7 +25,7 @@
 
         <div class="step-wrapper finish">
             <span class="step">2</span>
-            <p>Materiale</p>
+            <p>Bekræft plantegning</p>
         </div>
 
         <div class="line-connect finish-line"></div>
@@ -54,67 +54,61 @@
 
                 <form action="/createCustomerAndOrder" method="post">
 
-                <div class="container-box">
-                    <h2>Personlige Oplysninger</h2>
-                    <div class="customer-information">
-                        <p>Fornavn: <span th:text="${perInfo.fname}"></span></p>
-                        <input type="hidden" name="fname" th:value="${perInfo.fname}">
+                    <div class="container-box">
+                        <h2>Personlige Oplysninger</h2>
+                        <div class="customer-information">
+                            <p>Fornavn: <span th:text="${perInfo.fname}"></span></p>
+                            <input type="hidden" name="fname" th:value="${perInfo.fname}">
 
-                        <p>Efternavn: <span th:text="${perInfo.lname}"></span></p>
-                        <input type="hidden" name="lname" th:value="${perInfo.lname}">
+                            <p>Efternavn: <span th:text="${perInfo.lname}"></span></p>
+                            <input type="hidden" name="lname" th:value="${perInfo.lname}">
 
-                        <p>Telefon: <span th:text="${perInfo.phone}"></span></p>
-                        <input type="hidden" name="phone" th:value="${perInfo.phone}">
+                            <p>Telefon: <span th:text="${perInfo.phone}"></span></p>
+                            <input type="hidden" name="phone" th:value="${perInfo.phone}">
 
-                        <p>Email: <span th:text="${perInfo.email}"></span></p>
-                        <input type="hidden" name="email" th:value="${perInfo.email}">
+                            <p>Email: <span th:text="${perInfo.email}"></span></p>
+                            <input type="hidden" name="email" th:value="${perInfo.email}">
 
-                        <p>Adresse: <span th:text="${perInfo.address}"></span></p>
-                        <input type="hidden" name="address" th:value="${perInfo.address}">
+                            <p>Adresse: <span th:text="${perInfo.address}"></span></p>
+                            <input type="hidden" name="address" th:value="${perInfo.address}">
 
-                        <p>Postnr: <span th:text="${perInfo.zip}"></span></p>
-                        <input type="hidden" name="zip" th:value="${perInfo.zip}">
+                            <p>Postnr: <span th:text="${perInfo.zip}"></span></p>
+                            <input type="hidden" name="zip" th:value="${perInfo.zip}">
 
-                        <a href="customer-information.html">Ret oplysninger</a>
+                            <a href="customer-information.html">Ret oplysninger</a>
+                        </div>
                     </div>
-                </div>
 
-                <div class="container-box">
-                    <h2>Mål</h2>
-                    <div class="size">
-                        <p>Bredde: <span th:text="${sizeInfo.width}"></span></p>
-                        <input type="hidden" name="width" th:value="${sizeInfo.width}">
+                    <div class="container-box">
+                        <h2>Mål</h2>
+                        <div class="size">
+                            <p>Bredde: <span th:text="${sizeInfo.width}"></span></p>
+                            <input type="hidden" name="width" th:value="${sizeInfo.width}">
 
-                        <p>Længde: <span th:text="${sizeInfo.length}"></span></p>
-                        <input type="hidden" name="length" th:value="${sizeInfo.length}">
+                            <p>Længde: <span th:text="${sizeInfo.length}"></span></p>
+                            <input type="hidden" name="length" th:value="${sizeInfo.length}">
 
-                        <p>trapeztag: <span>-</span></p>
-                        <a href="size.html" th:href="@{/size}">Ret oplysninger</a>
+                            <p>trapeztag: <span>-</span></p>
+                            <a href="size.html" th:href="@{/size}">Ret oplysninger</a>
+                        </div>
                     </div>
-                </div>
 
-                    <button type="submit">Create account</button>
+                    <div class="container-box">
+                        <h2>Materialer</h2>
+                        <div class="materials">
+                            <p>Stolper: <span>-</span></p>
+                            <p>Spær: <span>-</span></p>
+                            <p>Remme: <span>-</span></p>
+                            <p>Stern: <span>-</span></p>
+                            <a href="material.html">Ret oplysninger</a>
+                        </div>
+                    </div>
+
+                    <div class="form-button-align">
+                        <a href="customer-information.html" th:href="@{/customer-information}" class="button-link">Tilbage</a>
+                        <button type="submit">Bestil tilbud</button>
+                    </div>
                 </form>
-
-                <div class="container-box">
-                    <h2>Materialer</h2>
-                    <div class="materials">
-                        <p>Stolper: <span>-</span></p>
-                        <p>Spær: <span >-</span></p>
-                        <p>Remme: <span >-</span></p>
-                        <p>Stern: <span>-</span></p>
-                        <a href="material.html">Ret oplysninger</a>
-                    </div>
-                </div>
-
-                <div class="form-button-align">
-                    <form action="" method="GET">
-                        <button type="submit" class="active">Tilbage</button>
-                    </form>
-                    <form action="" method="GET">
-                        <button type="submit" class="active">Videre</button>
-                    </form>
-                </div>
             </div>
         </div>
     </main>
