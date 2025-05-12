@@ -4,10 +4,7 @@ import app.exceptions.DatabaseException;
 import app.entities.User;
 
 import java.security.SecureRandom;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,32 +12,35 @@ import static app.Main.connectionPool;
 
 public class UserMapper {
 
-    // Create
-    public static void createUser(User user) throws DatabaseException {
+    public static int createUser(String firstName, String lastName, Integer phone, String email, String address, Integer zip, String password) throws DatabaseException {
+        String sql = "insert into users (first_name, last_name, phone_nr, email, address, zip, password) values (?,?,?,?,?,?,?)";
 
-        String password = generateRandomPassword(8);
-        user.setPassword(password);
+        String genPassword = generateRandomPassword(8);
 
+        try(Connection connection = connectionPool.getConnection();
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        )
+        {
+            ps.setString(1, firstName);
+            ps.setString(2, lastName);
+            ps.setInt(3, phone);
+            ps.setString(4, email);
+            ps.setString(5, address);
+            ps.setInt(6, zip);
+            ps.setString(7, genPassword);
 
-        String sql = "INSERT INTO users (first_name, last_name, phone_nr, email, address, zip,isAdmin, password)" +
-                "VALUES (?, ?, ?, ?, ?, ?,?,?) RETURNING user_id";
+            int affectedRows = ps.executeUpdate();
 
-        try (Connection connection = connectionPool.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
+            if (affectedRows == 0)  {
+                throw new DatabaseException("Creating user failed, no rows affected");
 
-            ps.setString(1, user.getFirstName());
-            ps.setString(2, user.getLastName());
-            ps.setInt(3, user.getPhoneNumber());
-            ps.setString(4, user.getEmail());
-            ps.setString(5, user.getAddress());
-            ps.setInt(6, user.getZip());
-            ps.setString(7, user.getPassword());
-
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    user.setUserId(rs.getInt("user_id"));
+            } try (ResultSet rs = ps.getGeneratedKeys())    {
+                if(rs.next())   {
+                    return rs.getInt(1);
+                } else {
+                    throw new DatabaseException("Creating user failed, no ID obtained");
                 }
-            }
+        }
         } catch (SQLException e) {
             throw new DatabaseException(e, "Error inserting user");
         }

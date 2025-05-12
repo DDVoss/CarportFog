@@ -22,7 +22,7 @@
 
             <div class="step-wrapper">
                 <span class="step">2</span>
-                <p>Materiale</p>
+                <p>Bekræft plantegning</p>
             </div>
 
             <div class="line-connect"></div>
@@ -51,19 +51,12 @@
             <form action="/size" method="post">
                 <div class="form-group">
                     <label for="cwidth">Carport bredde <span style="color: red">*</span></label>
-                    <select id="cwidth" name="width">
-                        <option hidden=""></option>
-                        <option value="bredde1">bredde1</option>
-                        <option value="bredde2">bredde2</option>
-                        <option value="bredde3">bredde3</option>
-                    </select>
+                    <input type="number" id="cwidth" name="width" placeholder="cm">
+
                     <label for="clength">Carport længde <span style="color: red">*</span></label>
-                    <select id="clength" name="length">
-                        <option hidden=""></option>
-                        <option value="længde1">længde1</option>
-                        <option value="længde2">længde2</option>
-                        <option value="længde3">længde3</option>
-                    </select>
+                    <input type="number" id="clength" name="length" placeholder="cm">
+
+
                     <label for="ctrapez">Carport trapeztag <span style="color: red">*</span></label>
                     <select id="ctrapez" name="trapez">
                         <option hidden=""></option>
@@ -86,21 +79,11 @@
                 <div class="form-group" id="toolshed-div">
                     <div>
                         <label for="twidth">Redskabskur bredde <span style="color: red">*</span></label>
-                        <select id="twidth" name="width">
-                            <option hidden=""></option>
-                            <option value="bredde1">bredde1</option>
-                            <option value="bredde2">bredde2</option>
-                            <option value="bredde3">bredde3</option>
-                        </select>
-                    </div>
-                    <div>
+                        <input type="number" id="twidth" name="width" placeholder="cm">
+
                         <label for="tlength">Redskabskur længde <span style="color: red">*</span></label>
-                        <select id="tlength" name="lenght">
-                            <option hidden=""></option>
-                            <option value="længde1">længde1</option>
-                            <option value="længde2">længde2</option>
-                            <option value="længde3">længde3</option>
-                        </select>
+                        <input type="number" id="tlength" name="lenght" placeholder="cm">
+
                     </div>
                 </div>
 
