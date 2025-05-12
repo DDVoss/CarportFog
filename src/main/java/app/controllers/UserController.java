@@ -39,13 +39,15 @@ public class UserController {
         String email = ctx.formParam("email");
         String address = ctx.formParam("address");
         Integer zip = Integer.parseInt(ctx.formParam("zip"));
+        String password = ctx.formParam("password");
 
         /* order data */
         Integer width = Integer.parseInt(ctx.formParam("width"));
         Integer length = Integer.parseInt(ctx.formParam("length"));
 
         try {
-            int userId = UserMapper.createUser(firstName, lastName, phone, email, address, zip);
+
+            int userId = UserMapper.createUser(firstName, lastName, phone, email, address, zip, password);
             OrderMapper.createOrder(userId, width, length);
 
             ctx.render("index.html");

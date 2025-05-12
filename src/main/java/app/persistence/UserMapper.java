@@ -12,40 +12,10 @@ import static app.Main.connectionPool;
 
 public class UserMapper {
 
-    // Create
-    /*
-    public static void createUser(User user) throws DatabaseException {
+    public static int createUser(String firstName, String lastName, Integer phone, String email, String address, Integer zip, String password) throws DatabaseException {
+        String sql = "insert into users (first_name, last_name, phone_nr, email, address, zip, password) values (?,?,?,?,?,?,?)";
 
-        String password = generateRandomPassword(8);
-        user.setPassword(password);
-
-
-        String sql = "INSERT INTO users (first_name, last_name, phone_nr, email, address, zip)" +
-                "VALUES (?, ?, ?, ?, ?, ?) RETURNING user_id";
-
-        try (Connection connection = connectionPool.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-
-            ps.setString(1, user.getFirstName());
-            ps.setString(2, user.getLastName());
-            ps.setInt(3, user.getPhoneNumber());
-            ps.setString(4, user.getEmail());
-            ps.setString(5, user.getAddress());
-            ps.setInt(6, user.getZip());
-
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    user.setUserId(rs.getInt("user_id"));
-                }
-            }
-        } catch (SQLException e) {
-            throw new DatabaseException(e, "Error inserting user");
-        }
-    }
-     */
-
-    public static int createUser(String firstName, String lastName, Integer phone, String email, String address, Integer zip) throws DatabaseException {
-        String sql = "insert into users (first_name, last_name, phone_nr, email, address, zip) values (?,?,?,?,?,?)";
+        String genPassword = generateRandomPassword(8);
 
         try(Connection connection = connectionPool.getConnection();
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -57,6 +27,7 @@ public class UserMapper {
             ps.setString(4, email);
             ps.setString(5, address);
             ps.setInt(6, zip);
+            ps.setString(7, genPassword);
 
             int affectedRows = ps.executeUpdate();
 
