@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <title>Admin - QuickByg</title>
+
+</head>
+<body>
+<div class="page-wrapper">
+
+    <div th:insert="~{fragments/header :: header}"></div>
+
+    <main>
+        <div id="main-content">
+            <div class="admin-button-container">
+                <form action="/admin/materialer" method="get">
+                    <button type="submit">Materialer</button>
+                </form>
+                <form action="/admin/ordre" method="get">
+                    <button type="submit">Alle ordre</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <div th:insert="~{fragments/footer :: footer}"></div>
+
+</div>
+</body>
+</html>
