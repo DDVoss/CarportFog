@@ -15,18 +15,18 @@ import static app.Main.connectionPool;
 public class OrderMapper {
 
 
-    public static void createOrder(int userId, int width, int length) throws DatabaseException  {
+    public static void createOrder(int userId, int width, int length) throws DatabaseException {
         String sql = "INSERT INTO orders (user_id, width, length) VALUES (?, ?, ?)";
 
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql))  {
+             PreparedStatement ps = connection.prepareStatement(sql)) {
 
             ps.setInt(1, userId);
             ps.setInt(2, width);
             ps.setInt(3, length);
 
             ps.executeUpdate();
-        } catch (SQLException e)  {
+        } catch (SQLException e) {
             throw new DatabaseException(e, "Error inserting order");
         }
     }
@@ -54,16 +54,29 @@ public class OrderMapper {
 
      */
 
+    public static void deleteOrder (int orderId) throws DatabaseException {
+        String sql = "DELETE FROM orders WHERE order_id = ?";
+
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, orderId);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e, "Error deleting order");
+        }
+    }
+
     public static List<Order> getAllOrders(ConnectionPool connectionPool) throws DatabaseException {
-        List<Order> orderList= new ArrayList<>();
+        List<Order> orderList = new ArrayList<>();
         String sql = "SELECT * FROM orders inner join users using(user_id)";
 
         try (
                 Connection connection = connectionPool.getConnection();
                 var preparedStatement = connection.prepareStatement(sql);
                 var rs = preparedStatement.executeQuery();
-        )
-        {
+        ) {
 
             while (rs.next()) {
                 int userId = rs.getInt("user_id");
@@ -92,23 +105,6 @@ public class OrderMapper {
         }
         return orderList;
     }
-
-
-    //Delete order
-
-    public static void deleteOrder (int orderId) throws DatabaseException {
-        String sql = "DELETE FROM orders WHERE order_id = ?";
-
-        try (Connection connection = connectionPool.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-
-            ps.setInt(1, orderId);
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            throw new DatabaseException(e, "Error deleting order");
-        }
-    }
-    }
+}
 
 
