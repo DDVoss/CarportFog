@@ -3,8 +3,8 @@ package app.controllers;
 import app.entities.User;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
-import app.persistence.OrderMapper;
-import app.persistence.UserMapper;
+import app.persistence.mappers.OrderMapper;
+import app.persistence.mappers.UserMapper;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 

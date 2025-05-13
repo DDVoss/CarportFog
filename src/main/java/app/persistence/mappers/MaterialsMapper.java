@@ -96,5 +96,3 @@ public class MaterialsMapper {
         return material;
     }
 }
-
-

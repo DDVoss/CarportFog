@@ -1,8 +1,10 @@
-package app.persistence;
+package app.persistence.mappers;
 
 import app.entities.Order;
 
+import app.entities.User;
 import app.exceptions.DatabaseException;
+import app.persistence.ConnectionPool;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -30,6 +32,7 @@ public class OrderMapper {
     }
 
 
+    /*
     public static void updateOrder(Order order) throws DatabaseException {
         String sql = "UPDATE orders SET user_id = ?, total_price = ?, order_date = ?, order_status = ?, width = ?, length = ? WHERE order_id = ?";
 
@@ -49,32 +52,47 @@ public class OrderMapper {
         }
     }
 
+     */
 
-    public static List<Order> getAllOrders() throws DatabaseException {
-        List<Order> orders= new ArrayList<>();
-        String sql = "SELECT * FROM orders";
+    public static List<Order> getAllOrders(ConnectionPool connectionPool) throws DatabaseException {
+        List<Order> orderList= new ArrayList<>();
+        String sql = "SELECT * FROM orders inner join users using(user_id)";
 
-        try (Connection connection = connectionPool.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+        try (
+                Connection connection = connectionPool.getConnection();
+                var preparedStatement = connection.prepareStatement(sql);
+                var rs = preparedStatement.executeQuery();
+        )
+        {
 
             while (rs.next()) {
-                int orderId = rs.getInt("order_id");
                 int userId = rs.getInt("user_id");
+                String firstName = rs.getString("first_name");
+                String lastName = rs.getString("last_name");
+                int phone = rs.getInt("phone_nr");
+                String email = rs.getString("email");
+                String address = rs.getString("address");
+                int zip = rs.getInt("zip");
+                boolean isAdmin = rs.getBoolean("is_admin");
+                String password = rs.getString("password");
+
+                int orderId = rs.getInt("order_id");
                 int totalPrice = rs.getInt("total_price");
-                String orderDate = rs.getString("order_date");
                 String orderStatus = rs.getString("order_status");
                 int width = rs.getInt("width");
                 int length = rs.getInt("length");
+                String orderDate = rs.getString("order_date");
 
-
-                orders.add(new Order(orderId, userId, totalPrice, orderDate, orderStatus, width, length));
+                User user = new User(userId, firstName, lastName, phone, email, address, zip, isAdmin, password);
+                Order order = new Order(orderId, totalPrice, orderStatus, width, length, orderDate, user);
+                orderList.add(order);
             }
         } catch (SQLException e) {
             throw new DatabaseException(e, "Error retrieving users");
         }
-        return orders;
+        return orderList;
     }
+
 
     //Delete order
 

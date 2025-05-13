@@ -11,14 +11,15 @@ import static app.Main.connectionPool;
 
 public class BomMapper {
 
+    /*
     public static void createBom(Bom bom) throws SQLException, DatabaseException {
         String sql = "INSERT INTO bom (variant_id, length, order_id) VALUES (?, ?, ?) RETURNING bom_id";
 
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
 
-            ps.setInt(1, bom.getVariantId());
-            ps.setInt(2, bom.getLength());
+            ps.setInt(1, bom.getVariant_id());
+            ps.setInt(2, bom.get());
             ps.setInt(3, bom.getOrderId());
 
 
@@ -32,6 +33,8 @@ public class BomMapper {
             throw new DatabaseException(e, "Error inserting bom");
         }
     }
+
+     */
 
 
 

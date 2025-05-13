@@ -3,47 +3,71 @@ package app.entities;
 public class Bom {
     private int bom_id;
     private int variant_id;
-    private int length;
     private int order_id;
+    private int quantity;
+    private String build_description;
+    private Order order;
 
-
-    public Bom(int bom_id, int variant_id, int length, int order_id) {
+    public Bom(int bom_id, int variant_id, int order_id, int quantity, String build_description, Order order) {
         this.bom_id = bom_id;
         this.variant_id = variant_id;
-        this.length = length;
         this.order_id = order_id;
+        this.quantity = quantity;
+        this.build_description = build_description;
+        this.order = order;
     }
 
+    //getter
 
-    public int getBomId() {
+    public int getBom_id() {
         return bom_id;
     }
-    public void setBomId(int bom_id) {
+
+    public int getVariant_id() {
+        return variant_id;
+    }
+
+    public int getOrder_id() {
+        return order_id;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public String getBuild_description() {
+        return build_description;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+
+    //setter
+
+
+    public void setBom_id(int bom_id) {
         this.bom_id = bom_id;
     }
 
-
-    public int getVariantId() {
-        return variant_id;
-    }
-    public void setVariantId(int variant_id) {
+    public void setVariant_id(int variant_id) {
         this.variant_id = variant_id;
     }
 
-
-    public int getLength() {
-        return length;
-    }
-    public void setLength(int length) {
-        this.length = length;
-    }
-
-
-    public int getOrderId() {
-        return order_id;
-    }
-    public void setOrderId(int order_id) {
+    public void setOrder_id(int order_id) {
         this.order_id = order_id;
     }
 
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setBuild_description(String build_description) {
+        this.build_description = build_description;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 }

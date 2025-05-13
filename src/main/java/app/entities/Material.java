@@ -17,15 +17,6 @@ public class Material {
 
     }
 
-    public Material(String description, String unit, String type, int pricePrUnit) {
-        this.description = description;
-        this.unit = unit;
-        this.type = type;
-        this.pricePrUnit = pricePrUnit;
-    }
-
-
-
 
     public int getMaterialId() {
         return materialId;
@@ -33,7 +24,6 @@ public class Material {
     public void setMaterialId(int materialId) {
         this.materialId = materialId;
     }
-
 
 
     public String getDescription() {
@@ -65,5 +55,16 @@ public class Material {
     }
     public void setPricePrUnit(int pricePrUnit) {
         this.pricePrUnit = pricePrUnit;
+    }
+
+    @Override
+    public String toString() {
+        return "Material{" +
+                "materialId=" + materialId +
+                ", description='" + description + '\'' +
+                ", unit='" + unit + '\'' +
+                ", type='" + type + '\'' +
+                ", pricePrUnit=" + pricePrUnit +
+                '}';
     }
 }

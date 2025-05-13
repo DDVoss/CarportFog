@@ -1,4 +1,4 @@
-package app.persistence;
+package app.persistence.mappers;
 
 import app.exceptions.DatabaseException;
 import app.entities.User;
@@ -82,7 +82,7 @@ public class UserMapper {
         }
     }
 
-    // Read: get all users
+
     public static List<User> getAllUsers() throws DatabaseException {
         List<User> users = new ArrayList<>();
         String sql = "SELECT * FROM users";
@@ -92,7 +92,7 @@ public class UserMapper {
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                int id = rs.getInt("user_id");
+                int userId = rs.getInt("user_id");
                 String firstName = rs.getString("first_name");
                 String lastName = rs.getString("last_name");
                 String email = rs.getString("email");
@@ -102,13 +102,15 @@ public class UserMapper {
                 boolean isAdmin = rs.getBoolean("is_admin");
                 String password = rs.getString("password");
 
-                users.add(new User(id, firstName, lastName, email, phoneNumber, address, zip,isAdmin,password));
+                users.add(new User(userId, firstName, lastName, phoneNumber, email, address, zip,isAdmin,password));
             }
             } catch (SQLException e) {
             throw new DatabaseException(e, "Error retrieving users");
         }
         return users;
     }
+
+
     public static User getUserByEmail(String email) throws DatabaseException {
         String sql = "SELECT * FROM users WHERE email = ?";
 
@@ -129,7 +131,7 @@ public class UserMapper {
                     String password = rs.getString("password");
 
 
-                    return new User(id, firstName, lastName, email, phoneNumber, address, zip,isAdmin,password);
+                    return new User(id, firstName, lastName, phoneNumber, email, address, zip,isAdmin,password);
                 }
             }
         } catch (SQLException e) {
