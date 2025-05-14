@@ -1,8 +1,7 @@
 package app.persistence.mappers;
 
-import app.entities.Order;
+import app.entities.*;
 
-import app.entities.User;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 
@@ -111,9 +110,9 @@ public class OrderMapper {
         return orderList;
     }
 
-    public static List<OrderItem> getOrderItemsByOrderId(int orderId, ConnectionPool connectionPool) throws DatabaseException {
-        List<OrderItem> orderItemList = new ArrayList<>();
-        String sql = "SELECT * FROM bill_of_materials_view where order_id = ?";
+    public static List<Bom> getBomByOrderId(int orderId, ConnectionPool connectionPool) throws DatabaseException {
+        List<Bom> bomList = new ArrayList<>();
+        String sql = "SELECT * FROM bom_view where order_id = ?";
         try (
                 Connection connection = connectionPool.getConnection();
                 PreparedStatement prepareStatement = connection.prepareStatement(sql);
@@ -123,19 +122,59 @@ public class OrderMapper {
             while (rs.next()) {
 
                 // Order
-
                 int totalPrice = rs.getInt("total_price");
                 String orderStatus = rs.getString("order_status");
                 int width = rs.getInt("width");
                 int length = rs.getInt("length");
                 String orderDate = rs.getString("order_date");
+
                 Order order = new Order(orderId, totalPrice, orderStatus, width, length, orderDate, null);
+
+                // Material
+                int materialId = rs.getInt("material_id");
+                String description = rs.getString("description");
+                String unit = rs.getString("unit");
+                String type = rs.getString("type");
+                int pricePrUnit = rs.getInt("price_pr_unit");
+
+                Material material = new Material(materialId, description, unit, type, pricePrUnit);
+
+                // Variant
+                int variantId = rs.getInt("variant_id");
+                int varLength = rs.getInt("length");
+
+                Variant variant = new Variant(variantId, material, varLength);
+
+                // Bom
+                int bomId = rs.getInt("bom_id");
+                int quantity = rs.getInt("quantity");
+                String buildDescription = rs.getString("build_description");
+
+                Bom bom = new Bom(bomId, quantity, buildDescription, order, variant);
+                bomList.add(bom);
 
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return orderItemList;
+        return bomList;
+    }
+
+    public static void insertBomItems(List<Bom> bomItems, ConnectionPool connectionPool) throws DatabaseException   {
+        String sql = "INSERT INTO bom (order_id. variant_id, quantity, build_description " +
+                "VALUES (?, ?, ?, ?)";
+        try (Connection connection = connectionPool.getConnection())    {
+            for (Bom bomItem : bomItems)  {
+                try (PreparedStatement ps = connection.prepareStatement(sql))   {
+                    ps.setInt(1, bomItem.getOrder().getOrderId());
+                    ps.setInt(2, bomItem.getVariant().getVariantId());
+                    ps.setInt(3, bomItem.getQuantity());
+                    ps.setString(4, bomItem.getBuild_description());
+                }
+            }
+        } catch (SQLException e)   {
+            throw new DatabaseException("Could not create bomItem in the database");
+        }
     }
 }
 

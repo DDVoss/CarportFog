@@ -1,7 +1,9 @@
 package app.persistence.mappers;
 
 import app.entities.Material;
+import app.entities.Variant;
 import app.exceptions.DatabaseException;
+import app.persistence.ConnectionPool;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -94,5 +96,31 @@ public class MaterialsMapper {
         }
 
         return material;
+    }
+
+    public static List<Variant> getVariantsByMaterialIdAndMinLength (int minLength, int materialId, ConnectionPool connectionPool)  {
+        List<Variant> productVariants = new ArrayList<>();
+        String sql ="SELECT * FROM Variant " +
+                    "INNER JOIN material m USING(material_id) " +
+                    "WHERE material_id = ? AND length >= ?";
+        try (Connection connection = connectionPool.getConnection())    {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, materialId);
+            ps.setInt(2, minLength);
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next())    {
+                int variantId = resultSet.getInt("variant_id");
+                int material_id = resultSet.getInt("material_id");
+                int length = resultSet.getInt("length");
+
+                Material material = new Material(material_id, null, null, null,0);
+                Variant variant = new Variant(variantId,material,length);
+                productVariants.add(variant);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return productVariants;
     }
 }
