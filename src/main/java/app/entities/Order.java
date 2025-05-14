@@ -8,6 +8,7 @@ public class Order {
     private String orderStatus;
     private int width;
     private int length;
+    User user;
 
     public Order(int orderId, int userId, int totalPrice, String orderDate, String orderStatus, int width, int length) {
         this.orderId = orderId;
@@ -22,6 +23,25 @@ public class Order {
     public Order(int totalPrice, String orderDate, String orderStatus, int width, int length) {
         this.totalPrice = totalPrice;
         this.orderDate = orderDate;
+        this.orderStatus = orderStatus;
+        this.width = width;
+        this.length = length;
+    }
+
+    public Order(int totalPrice, String orderDate, String orderStatus, int width, int length, User user, int userId, int orderId) {
+        this.totalPrice = totalPrice;
+        this.orderDate = orderDate;
+        this.orderStatus = orderStatus;
+        this.width = width;
+        this.length = length;
+        this.user = user;
+        this.orderId = orderId;
+        this.userId =userId;
+    }
+
+    public Order(int orderId, int totalPrice, String orderStatus, int width, int length) {
+        this.orderId = orderId;
+        this.totalPrice = totalPrice;
         this.orderStatus = orderStatus;
         this.width = width;
         this.length = length;
@@ -81,6 +101,14 @@ public class Order {
 
     public void setUserId() {
         this.userId = userId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

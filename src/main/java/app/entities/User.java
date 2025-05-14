@@ -33,6 +33,16 @@ public class User {
         this.zip = zip;
     }
 
+    public User(int userId, String firstName, String lastName, String email, int phoneNumber, String address, int zip) {
+        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.zip = zip;
+    }
+
     public int getUserId() {
         return userId;
     }
@@ -88,21 +98,6 @@ public class User {
         this.zip = zip;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber=" + phoneNumber +
-                ", isAdmin='" + isAdmin + '\'' +
-                ", address='" + address + '\'' +
-                ", zip=" + zip +
-                '}';
-    }
-
-
     public boolean isAdmin() {
         return isAdmin;
     }
@@ -117,4 +112,18 @@ public class User {
         this.password = password;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber=" + phoneNumber +
+                ", address='" + address + '\'' +
+                ", isAdmin=" + isAdmin +
+                ", zip=" + zip +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }
