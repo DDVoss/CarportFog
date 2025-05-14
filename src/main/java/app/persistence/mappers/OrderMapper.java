@@ -54,7 +54,7 @@ public class OrderMapper {
 
      */
 
-    public static void deleteOrder (int orderId) throws DatabaseException {
+    public static void deleteOrder(int orderId) throws DatabaseException {
         String sql = "DELETE FROM orders WHERE order_id = ?";
 
         try (Connection connection = connectionPool.getConnection();
@@ -79,6 +79,9 @@ public class OrderMapper {
         ) {
 
             while (rs.next()) {
+
+                // User
+
                 int userId = rs.getInt("user_id");
                 String firstName = rs.getString("first_name");
                 String lastName = rs.getString("last_name");
@@ -88,6 +91,8 @@ public class OrderMapper {
                 int zip = rs.getInt("zip");
                 boolean isAdmin = rs.getBoolean("is_admin");
                 String password = rs.getString("password");
+
+                // Order
 
                 int orderId = rs.getInt("order_id");
                 int totalPrice = rs.getInt("total_price");
@@ -104,6 +109,33 @@ public class OrderMapper {
             throw new DatabaseException(e, "Error retrieving users");
         }
         return orderList;
+    }
+
+    public static List<OrderItem> getOrderItemsByOrderId(int orderId, ConnectionPool connectionPool) throws DatabaseException {
+        List<OrderItem> orderItemList = new ArrayList<>();
+        String sql = "SELECT * FROM bill_of_materials_view where order_id = ?";
+        try (
+                Connection connection = connectionPool.getConnection();
+                PreparedStatement prepareStatement = connection.prepareStatement(sql);
+        ) {
+            prepareStatement.setInt(1, orderId);
+            var rs = prepareStatement.executeQuery();
+            while (rs.next()) {
+
+                // Order
+
+                int totalPrice = rs.getInt("total_price");
+                String orderStatus = rs.getString("order_status");
+                int width = rs.getInt("width");
+                int length = rs.getInt("length");
+                String orderDate = rs.getString("order_date");
+                Order order = new Order(orderId, totalPrice, orderStatus, width, length, orderDate, null);
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return orderItemList;
     }
 }
 
