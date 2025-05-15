@@ -8,6 +8,8 @@ import app.persistence.UserMapper;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 
+import java.sql.SQLException;
+
 public class UserController {
 
     public static Handler loginPost = ctx -> {
@@ -68,6 +70,8 @@ public class UserController {
         } catch (DatabaseException e)   {
             ctx.attribute("error", "Database fejl prøv venligst igen");
             ctx.render("summary.html"); /* Should be changed to the receipt site (receipt site not created yet)*/
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
