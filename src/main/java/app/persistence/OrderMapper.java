@@ -14,16 +14,16 @@ import static app.Main.connectionPool;
 public class OrderMapper {
 
     // Create a new order and return the generated order_id
-    public static int createOrder(int orderId, int width, int length) throws DatabaseException, SQLException {
-        String sql = "INSERT INTO orders (user_id, total_price, order_date, order_status, width, length) " +
-                "VALUES (?, ?, ?, ?, ?, ?) RETURNING order_id";
+    public static int createOrder(int userId, int width, int length) throws DatabaseException, SQLException {
+        String sql = "INSERT INTO orders (user_id, width, length) " +
+                "VALUES (?, ?, ?) RETURNING order_id";
 
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
 
-            ps.setInt(1, orderId);
-            ps.setInt(5, width);
-            ps.setInt(6, length);
+            ps.setInt(1, userId);
+            ps.setInt(2, width);
+            ps.setInt(3, length);
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
