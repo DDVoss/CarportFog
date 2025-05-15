@@ -113,8 +113,7 @@ public class MaterialsMapper {
                 int material_id = resultSet.getInt("material_id");
                 int length = resultSet.getInt("length");
 
-                Material material = new Material(material_id, null, null, null,0);
-                Variant variant = new Variant(variantId,material,length);
+                Variant variant = new Variant(variantId,materialId,length);
                 productVariants.add(variant);
             }
         } catch (SQLException e) {

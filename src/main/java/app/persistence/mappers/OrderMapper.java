@@ -31,7 +31,7 @@ public class OrderMapper {
     }
 
 
-    /*
+
     public static void updateOrder(Order order) throws DatabaseException {
         String sql = "UPDATE orders SET user_id = ?, total_price = ?, order_date = ?, order_status = ?, width = ?, length = ? WHERE order_id = ?";
 
@@ -51,7 +51,7 @@ public class OrderMapper {
         }
     }
 
-     */
+
 
     public static void deleteOrder(int orderId) throws DatabaseException {
         String sql = "DELETE FROM orders WHERE order_id = ?";

@@ -3,11 +3,18 @@ package app.entities;
 public class Variant {
     private int variantId;
     private Material material;
+    private int materialId;
     private int length;
 
     public Variant(int variantId, Material material, int length) {
         this.variantId = variantId;
         this.material = material;
+        this.length = length;
+    }
+
+    public Variant(int variantId, int materialId, int length) {
+        this.variantId = variantId;
+        this.materialId = materialId;
         this.length = length;
     }
 
