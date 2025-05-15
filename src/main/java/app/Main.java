@@ -12,8 +12,9 @@ import java.util.logging.Logger;
 public class Main {
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
-    private static final String USER = "postgres";
+    private static final String USER = System.getenv("dbuser");;
     private static final String PASSWORD = System.getenv("password");
+    // Remote IP for db -> 64.226.94.193
     private static final String URL = "jdbc:postgresql://" + System.getenv("ip") + ":5432/%s?currentSchema=public";
     private static final String DB = "carport";
 

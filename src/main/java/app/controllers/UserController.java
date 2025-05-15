@@ -16,19 +16,33 @@ public class UserController {
 
         try {
             User user = UserMapper.getUserByEmail(email);
+            assert user != null;
+            String userPassword = user.getPassword();
+            Boolean userIsAdmin = user.isAdmin();
 
-                if (user != null && password.equals(user.getPassword())) {
-                    ctx.sessionAttribute("currentUser", user);
-                    ctx.redirect("/dashboard");
+            if(userPassword == null) {
+                ctx.status(400);
+                throw new Exception("Password does not exist");
+            }
 
-                } else {
-                    ctx.attribute("error", "Forkert e-mail eller adgangskode");
-                    ctx.render("login.html");
-                }
+            if(!password.equals(userPassword)) {
+                ctx.status(400);
+                throw new Exception("Incorrect password");
+            }
+
+            if(userIsAdmin) {
+                ctx.sessionAttribute("currentUser", user);
+                ctx.redirect("/adminpage");
+            }
+
+            ctx.sessionAttribute("currentUser", user);
+            ctx.redirect("/dashboard");
+
 
         } catch (DatabaseException e) {
             ctx.status(500).result("Serverfejl: " + e.getMessage());
         }
+
     };
 
     public static  void createCustomerAndOrder(Context ctx, ConnectionPool connectionPool)  {
