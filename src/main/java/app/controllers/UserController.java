@@ -18,37 +18,39 @@ public class UserController {
 
         try {
             User user = UserMapper.getUserByEmail(email);
-            assert user != null;
+
+            if (user == null) {
+                ctx.status(400).result("User not found");
+                return;
+            }
+
             String userPassword = user.getPassword();
-            Boolean userIsAdmin = user.isAdmin();
-
-            if(userPassword == null) {
-                ctx.status(400);
-                throw new Exception("Password does not exist");
+            if (userPassword == null) {
+                ctx.status(400).result("Password does not exist");
+                return;
             }
 
-            if(!password.equals(userPassword)) {
-                ctx.status(400);
-                throw new Exception("Incorrect password");
-            }
-
-            if(userIsAdmin) {
-                ctx.sessionAttribute("currentUser", user);
-                ctx.redirect("/adminpage");
+            if (!password.equals(userPassword)) {
+                ctx.status(400).result("Incorrect password");
+                return;
             }
 
             ctx.sessionAttribute("currentUser", user);
-            ctx.redirect("/dashboard");
 
+            if (user.isAdmin()) {
+                ctx.redirect("/adminpage");
+            } else {
+                ctx.redirect("/dashboard");
+            }
 
         } catch (DatabaseException e) {
-            ctx.status(500).result("Serverfejl: " + e.getMessage());
+            ctx.status(500).result("Server error: " + e.getMessage());
         }
-
     };
 
+
     public static  void createCustomerAndOrder(Context ctx, ConnectionPool connectionPool)  {
-        /* customer data */
+        // customer data
         String firstName = ctx.formParam("fname");
         String lastName = ctx.formParam("lname");
         Integer phone = Integer.parseInt(ctx.formParam("phone"));
@@ -57,7 +59,7 @@ public class UserController {
         Integer zip = Integer.parseInt(ctx.formParam("zip"));
         String password = ctx.formParam("password");
 
-        /* order data */
+        // order data
         Integer width = Integer.parseInt(ctx.formParam("width"));
         Integer length = Integer.parseInt(ctx.formParam("length"));
 
@@ -69,7 +71,7 @@ public class UserController {
             ctx.render("index.html");
         } catch (DatabaseException e)   {
             ctx.attribute("error", "Database fejl prøv venligst igen");
-            ctx.render("summary.html"); /* Should be changed to the receipt site (receipt site not created yet)*/
+            ctx.render("summary.html"); // Should be changed to the receipt site (receipt site not created yet)*
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

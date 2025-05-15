@@ -20,6 +20,7 @@ public class User {
         this.isAdmin = isAdmin;
         this.address = address;
         this.zip = zip;
+        this.password = password;
     }
 
     public User(int userId, String firstName, String lastName, String email, int phoneNumber, String address, int zip, boolean isAdmin, String password) {
@@ -31,6 +32,7 @@ public class User {
         this.isAdmin = isAdmin;
         this.address = address;
         this.zip = zip;
+        this.password = password;
     }
 
     public User(int userId, String firstName, String lastName, String email, int phoneNumber, String address, int zip) {
