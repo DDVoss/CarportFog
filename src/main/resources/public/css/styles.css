@@ -19,7 +19,9 @@ main {
 }
 
 ul {
+    display: flex;
     margin: 0;
+
 }
 
 li {
@@ -80,11 +82,32 @@ button:hover    {
 }
 
 #navbar {
+    display: grid;
+    grid-template-columns: 70px 1fr 1fr;
+    grid-template-rows: 70px;
+    grid-template-areas: "logo buttons login";
     position: sticky;
     top: 0;
     background-color: #FFFFFF;
     height: 70px;
 }
+
+.nav-logo {
+    grid-area: logo;
+    height: 70px;
+    width: 70px;
+}
+
+.nav-buttons {
+    grid-area: buttons
+}
+
+.nav-login {
+    grid-area: login;
+    justify-self: end;
+    padding-right: 20px;
+}
+
 
 #navbar a {
 
@@ -103,6 +126,10 @@ button:hover    {
 
 #navbar a.active {
     border-bottom: 2px solid #101820;
+}
+
+#navbar ul {
+    padding: 0;
 }
 
 /*Footer styling*/
@@ -424,6 +451,7 @@ input[type="radio"]:checked + .option-label {
     font-size: 1.2rem;
     cursor: pointer;
 }
+
 
 
 /* See-all-orders styling */
