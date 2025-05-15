@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Fog - QuickByg</title>
+    <link href="/public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="page-wrapper">
+
+    <div th:insert="~{fragments/header :: header}"></div>
+
+    <main>
+        <div id="main-content">
+            <h1 id="order-h1">Oversigt over ordrer</h1>
+
+            <div class="table-container">
+                <table id="order-table">
+                    <thead>
+                    <tr>
+                        <th>Ordre ID</th>
+                        <th>Ordre Dato</th>
+                        <th>Ordre Status</th>
+                        <th>Se ordre detaljer</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="order : ${orders}">
+                        <td th:text="${order.orderId}"></td>
+                        <td th:text="${order.orderDate}"></td>
+                        <td th:text="${order.orderStatus}"></td>
+                        <td>
+                            <a th:href="@{/admin/orders/{id}(id=${order.orderId})}">Se detaljer</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <div th:insert="~{fragments/footer :: footer}"></div>
+
+</div>
+</body>
+</html>

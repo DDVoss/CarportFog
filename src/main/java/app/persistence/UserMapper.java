@@ -60,9 +60,9 @@ public class UserMapper {
         }
     }
 
-    // Update full user
-    public static void updateUser(User user) throws DatabaseException {
-        String sql = "UPDATE users SET first_name = ?, last_name = ?, phone_nr = ?, email = ?, address = ?, zip = ?, isAdmin = ?, password = ? WHERE email = ?";
+    // Update userDetails
+    public static void updateUserDetails(User user) throws DatabaseException {
+        String sql = "UPDATE users SET first_name = ?, last_name = ?, phone_nr = ?, email = ?, address = ?, zip = ? WHERE user_id = ?";
 
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -73,8 +73,7 @@ public class UserMapper {
             ps.setString(4, user.getEmail());
             ps.setString(5, user.getAddress());
             ps.setInt(6, user.getZip());
-            ps.setBoolean(7,user.isAdmin());
-            ps.setString(8, user.getPassword());
+            ps.setInt(7, user.getUserId());
 
             ps.executeUpdate();
         } catch (SQLException e) {

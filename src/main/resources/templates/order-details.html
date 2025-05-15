@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Fog - QuickByg</title>
+  <link href="/public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="page-wrapper">
+
+  <div th:insert="~{fragments/header :: header}"></div>
+
+  <main>
+    <div class="main-content-orders">
+      <div class="container-orderDetails">
+        <h2>Ordre Detaljer: <span th:text="${order.orderId}"></span></h2>
+        <ul>
+          <li>Dato: <span th:text="${order.orderDate}"></span></li>
+          <li>Status: <span th:text="${order.orderStatus}"></span></li>
+          <li>Pris: <span th:text="${order.totalPrice}"></span></li>
+          <li>Bredde: <span th:text="${order.width}"></span></li>
+          <li>Længde: <span th:text="${order.length}"></span></li>
+          <li>Fornavn: <span th:text="${order.user.firstName}"></span></li>
+          <li>Efternavn: <span th:text="${order.user.lastName}"></span></li>
+          <li>Email: <span th:text="${order.user.email}"></span></li>
+          <li>Telefon: <span th:text="${order.user.phoneNumber}"></span></li>
+          <li>Adresse: <span th:text="${order.user.address}"></span></li>
+          <li>Postnr: <span th:text="${order.user.zip}"></span></li>
+        </ul>
+      </div>
+
+      <div class="container-editOrder">
+        <h2>Rediger Ordrer</h2>
+        <form method="post" th:action="@{/admin/orderDetails/update}">
+          <input type="hidden" name="orderId" th:value="${order.orderId}" />
+          <input type="hidden" name="userId" th:value="${order.user.userId}" />
+
+          <label for="orderStatus">Status:</label>
+          <select name="orderStatus" id="orderStatus">
+            <option th:each="status : ${statuses}"
+                    th:value="${status}"
+                    th:text="${status}"
+                    th:selected="${order.orderStatus == status}">
+            </option>
+          </select>
+
+          <label>Pris:</label>
+          <input type="number" name="totalPrice" th:value="${order.totalPrice}" />
+
+          <label>Bredde:</label>
+          <input type="number" name="width" th:value="${order.width}" />
+
+          <label>Længde:</label>
+          <input type="number" name="length" th:value="${order.length}" />
+
+          <label>Fornavn:</label>
+          <input type="text" name="firstName" th:value="${order.user.firstName}" />
+
+          <label>Efternavn:</label>
+          <input type="text" name="lastName" th:value="${order.user.lastName}" />
+
+          <label>Email:</label>
+          <input type="text" name="email" th:value="${order.user.email}" />
+
+          <label>Telefon:</label>
+          <input type="text" name="phoneNumber" th:value="${order.user.phoneNumber}" />
+
+          <label>Adresse:</label>
+          <input type="text" name="address" th:value="${order.user.address}" />
+
+          <label>Postnr:</label>
+          <input type="text" name="zip" th:value="${order.user.zip}" />
+
+          <button class="order-button" type="submit">Gem ændringer</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <div th:insert="~{fragments/footer :: footer}"></div>
+
+</div>
+</body>
+</html>

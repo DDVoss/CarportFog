@@ -384,12 +384,6 @@ input[type="radio"]:checked + .option-label {
 
 }
 
-
-
-
-
-
-
 .login-container {
     background: #ffffff;
     padding: 2rem;
@@ -456,4 +450,90 @@ input[type="radio"]:checked + .option-label {
     padding: 1rem 2rem;
     font-size: 1.2rem;
     cursor: pointer;
+}
+
+
+
+/* See-all-orders styling */
+#order-h1 {
+    text-align: center;
+}
+
+#order-table {
+    width: 50%;
+    border-collapse: collapse;
+    background-color: white;
+    margin: auto;
+}
+
+.table-container th, td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: left;
+}
+
+.table-container th {
+    background-color: #f2f2f2;
+}
+
+/* Order-details styling */
+
+.main-content-orders {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 20px;
+
+}
+.container-orderDetails,
+.container-editOrder {
+    flex: 1;
+    max-width: 500px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+
+}
+
+.container-orderDetails ul {
+    display: block;
+    padding: 0;
+
+}
+.container-orderDetails li {
+    margin-bottom: 50px;
+    margin-top: 50px;
+    display: block;
+    text-align: left;
+    font-weight: bold;
+}
+
+.container-orderDetails li > span {
+    font-weight: normal;
+}
+
+.container-editOrder form {
+    display: flex;
+    flex-direction: column;
+}
+
+.container-editOrder form label {
+    margin-top: 10px;
+    margin-bottom: 4px;
+    font-weight: bold;
+}
+.order-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    max-width: 200px;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.form-submit button:hover {
+    background-color: #0056b3;
 }
