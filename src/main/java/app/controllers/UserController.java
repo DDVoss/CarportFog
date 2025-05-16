@@ -71,7 +71,7 @@ public class UserController {
             ctx.render("index.html");
         } catch (DatabaseException e)   {
             ctx.attribute("error", "Database fejl prøv venligst igen");
-            ctx.render("receid.html"); // Should be changed to the receipt site (receipt site not created yet)*
+            ctx.render("receipt.html"); // Should be changed to the receipt site (receipt site not created yet)*
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
