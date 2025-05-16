@@ -19,6 +19,12 @@ public class Order {
         this.user = user;
     }
 
+    public Order(int orderId, int width, int length) {
+        this.orderId = orderId;
+        this.width = width;
+        this.length = length;
+    }
+
     // getter
 
     public int getOrderId() {

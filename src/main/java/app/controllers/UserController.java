@@ -1,10 +1,12 @@
 package app.controllers;
 
+import app.entities.Order;
 import app.entities.User;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.mappers.OrderMapper;
 import app.persistence.mappers.UserMapper;
+import app.services.Calculator;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 
@@ -46,9 +48,18 @@ public class UserController {
         Integer length = Integer.parseInt(ctx.formParam("length"));
 
         try {
-
+            // Creating Customer and order
             int userId = UserMapper.createUser(firstName, lastName, phone, email, address, zip, password);
-            OrderMapper.createOrder(userId, width, length);
+            Order order = OrderMapper.createOrder(userId, width, length);
+
+            //Calculator
+            Calculator calculator = new Calculator(width, length, connectionPool);
+            calculator.calcCarport(order);
+
+            // Inserting calculated items in
+            OrderMapper.insertBomItems(calculator.getBomItems(), connectionPool);
+
+
 
             ctx.render("index.html");
         } catch (DatabaseException e)   {

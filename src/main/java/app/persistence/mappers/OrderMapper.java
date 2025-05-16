@@ -14,7 +14,7 @@ import static app.Main.connectionPool;
 public class OrderMapper {
 
 
-    public static void createOrder(int userId, int width, int length) throws DatabaseException {
+    public static Order createOrder(int userId, int width, int length) throws DatabaseException {
         String sql = "INSERT INTO orders (user_id, width, length) VALUES (?, ?, ?)";
 
         try (Connection connection = connectionPool.getConnection();
@@ -25,13 +25,21 @@ public class OrderMapper {
             ps.setInt(3, length);
 
             ps.executeUpdate();
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next()) {
+                    int orderId = rs.getInt(1);
+                    return new Order(orderId, width, length);
+                } else {
+                    throw new DatabaseException("No order ID returned.");
+                }
+            }
         } catch (SQLException e) {
-            throw new DatabaseException(e, "Error inserting order");
+            throw new DatabaseException(e, "Failed to create order.");
         }
     }
 
 
-
+/*
     public static void updateOrder(Order order) throws DatabaseException {
         String sql = "UPDATE orders SET user_id = ?, total_price = ?, order_date = ?, order_status = ?, width = ?, length = ? WHERE order_id = ?";
 
@@ -50,6 +58,8 @@ public class OrderMapper {
             throw new DatabaseException(e, "Error updating user");
         }
     }
+
+ */
 
 
 
@@ -161,7 +171,7 @@ public class OrderMapper {
     }
 
     public static void insertBomItems(List<Bom> bomItems, ConnectionPool connectionPool) throws DatabaseException   {
-        String sql = "INSERT INTO bom (order_id. variant_id, quantity, build_description " +
+        String sql = "INSERT INTO bom (order_id. variant_id, quantity, build_description) " +
                 "VALUES (?, ?, ?, ?)";
         try (Connection connection = connectionPool.getConnection())    {
             for (Bom bomItem : bomItems)  {
@@ -170,6 +180,8 @@ public class OrderMapper {
                     ps.setInt(2, bomItem.getVariant().getVariantId());
                     ps.setInt(3, bomItem.getQuantity());
                     ps.setString(4, bomItem.getBuild_description());
+
+                    ps.executeUpdate();
                 }
             }
         } catch (SQLException e)   {
