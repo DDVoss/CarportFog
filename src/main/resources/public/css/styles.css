@@ -537,3 +537,21 @@ input[type="radio"]:checked + .option-label {
 .form-submit button:hover {
     background-color: #0056b3;
 }
+
+
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.order-table th, .order-table td {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+.order-total {
+    margin-top: 1rem;
+    font-weight: bold;
+}

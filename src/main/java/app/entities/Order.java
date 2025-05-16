@@ -20,24 +20,6 @@ public class Order {
         this.length = length;
     }
 
-    public Order(int totalPrice, String orderDate, String orderStatus, int width, int length) {
-        this.totalPrice = totalPrice;
-        this.orderDate = orderDate;
-        this.orderStatus = orderStatus;
-        this.width = width;
-        this.length = length;
-    }
-
-    public Order(int totalPrice, String orderDate, String orderStatus, int width, int length, User user, int userId, int orderId) {
-        this.totalPrice = totalPrice;
-        this.orderDate = orderDate;
-        this.orderStatus = orderStatus;
-        this.width = width;
-        this.length = length;
-        this.user = user;
-        this.orderId = orderId;
-        this.userId =userId;
-    }
 
     public Order(int orderId, int totalPrice, String orderStatus, int width, int length) {
         this.orderId = orderId;
@@ -45,6 +27,27 @@ public class Order {
         this.orderStatus = orderStatus;
         this.width = width;
         this.length = length;
+    }
+
+
+    public Order(int orderId, String orderDate, String orderStatus, int width, int length, User user) {
+        this.orderId = orderId;
+        this.orderDate = orderDate;
+        this.orderStatus = orderStatus;
+        this.width = width;
+        this.length = length;
+        this.user = user;
+    }
+
+    public Order(int totalPrice, String orderDate, String orderStatus, int width, int length, User user, int userId, int id) {
+        totalPrice = totalPrice;
+        this.orderDate = orderDate;
+        this.orderStatus = orderStatus;
+        this.width = width;
+        this.length = length;
+        this.user = user;
+        this.userId = userId;
+        this.orderId = id;
     }
 
     public int getOrderId() {

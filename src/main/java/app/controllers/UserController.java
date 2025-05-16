@@ -1,5 +1,6 @@
 package app.controllers;
 
+import app.entities.Order;
 import app.entities.User;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
@@ -36,11 +37,13 @@ public class UserController {
             }
 
             ctx.sessionAttribute("currentUser", user);
+            ctx.sessionAttribute("userId", user.getUserId());
 
             if (user.isAdmin()) {
                 ctx.redirect("/adminpage");
             } else {
-                ctx.redirect("/dashboard");
+
+                ctx.redirect("/user/orders");
             }
 
         } catch (DatabaseException e) {
@@ -82,6 +85,7 @@ public class UserController {
         ctx.req().getSession().invalidate();
         ctx.redirect("/login");
     };
+
 
 
 }

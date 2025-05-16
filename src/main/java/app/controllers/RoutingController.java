@@ -102,8 +102,8 @@ public class RoutingController {
             ctx.render("see-all-orders.html");
         });
 
-        // get all orderDetails
-       app.get("/admin/orders/{id}", ctx -> {
+
+        app.get("/admin/orders/{id}", ctx -> {
 
             int orderId = Integer.parseInt(ctx.pathParam("id"));
             Order order = OrderMapper.getAllOrderDetailsById(orderId);
@@ -114,5 +114,28 @@ public class RoutingController {
             ctx.render("order-details.html");
         });
 
+
+        app.get("/user/orders", ctx -> {
+            Integer userId = ctx.sessionAttribute("userId");
+            if (userId == null) {
+                ctx.status(403).result("Not logged in");
+                return;
+            }
+
+            List<Order> orders = OrderMapper.getAllOrdersWithUserByUserId(userId);
+            ctx.attribute("orders", orders);
+            ctx.render("user-orders.html");
+        });
+
+
+
+
+
+
     }
+    
+    
+    
+    
+    
 }
