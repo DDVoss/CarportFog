@@ -91,7 +91,7 @@ public class RoutingController {
             Map<String, Object> model = new HashMap<>();
             model.put("sizeInfo", ctx.sessionAttribute("sizeInfo"));
             model.put("perInfo", ctx.sessionAttribute("perInfo"));
-            ctx.render("receid.html", model);
+            ctx.render("summary.html", model);
         });
 
 
