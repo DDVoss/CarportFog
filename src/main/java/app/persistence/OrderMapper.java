@@ -80,7 +80,7 @@ public class OrderMapper {
     }
 
 
-    // Read: get all orders
+
     public static List<Order> getAllOrders() throws DatabaseException {
         List<Order> orders= new ArrayList<>();
         String sql = "SELECT * FROM orders";
@@ -107,6 +107,53 @@ public class OrderMapper {
         return orders;
     }
 
+    public static List<Order> getAllOrdersWithUserByUserId(int userId) throws DatabaseException {
+
+        String sql = "SELECT * FROM orders INNER JOIN users ON orders.user_id = users.user_id WHERE orders.user_id = ?";
+        List<Order> orders = new ArrayList<>();
+
+        try (
+                Connection connection = connectionPool.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql)
+        ) {
+            ps.setInt(1, userId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+
+                    String firstname = rs.getString("first_name");
+                    String lastname = rs.getString("last_name");
+                    String email = rs.getString("email");
+                    int phoneNumber = rs.getInt("phone_nr");
+                    String address = rs.getString("address");
+                    int zip = rs.getInt("zip");
+                    Boolean role = rs.getBoolean("is_admin");
+                    String password = rs.getString("password");
+
+
+                    int orderId = rs.getInt("order_id");
+                    int totalPrice = rs.getInt("total_price");
+                    String orderDate = rs.getString("order_date");
+                    String orderStatus = rs.getString("order_status");
+                    int width = rs.getInt("width");
+                    int length = rs.getInt("length");
+
+                    User user = new User(userId, firstname, lastname, email, phoneNumber, address, zip, role, password);
+                    Order order = new Order(orderId,orderDate,orderStatus,width,length,user);
+
+                    orders.add(order);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new DatabaseException(e, "Fejl ved hentning af bruger");
+        }
+
+        return orders;
+    }
+
+
+
     public static Order getAllOrderDetailsById(int orderId) throws DatabaseException {
 
         String sql = "SELECT * FROM orders INNER JOIN users ON orders.user_id = users.user_id WHERE orders.order_id = ?";
@@ -116,7 +163,6 @@ public class OrderMapper {
                 PreparedStatement ps = connection.prepareStatement(sql);
         ) {
             ps.setInt(1, orderId);
-
             try(ResultSet rs = ps.executeQuery()) {
 
                 if (rs.next()) {
@@ -151,6 +197,7 @@ public class OrderMapper {
         }
 
     }
+
 
     //Delete order
 
