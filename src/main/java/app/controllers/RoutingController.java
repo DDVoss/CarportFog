@@ -91,7 +91,7 @@ public class RoutingController {
             Map<String, Object> model = new HashMap<>();
             model.put("sizeInfo", ctx.sessionAttribute("sizeInfo"));
             model.put("perInfo", ctx.sessionAttribute("perInfo"));
-            ctx.render("summary.html", model);
+            ctx.render("receid.html", model);
         });
 
 
@@ -113,6 +113,18 @@ public class RoutingController {
             ctx.attribute("statuses", statuses);
             ctx.render("order-details.html");
         });
+
+       // get orderdetails
+        app.get("/customer/order", ctx -> {
+            User currentUser = ctx.sessionAttribute("currentUser");
+
+            int orderId = OrderMapper.getOrderIdByUserId(currentUser.getUserId());
+            Order order = OrderMapper.getAllOrderDetailsById(orderId);
+
+            ctx.attribute("order", order);
+            ctx.render("customer/order-details.html");
+        });
+
 
     }
 }

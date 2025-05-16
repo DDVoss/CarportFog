@@ -101,7 +101,7 @@ public class UserMapper {
                 boolean isAdmin = rs.getBoolean("is_admin");
                 String password = rs.getString("password");
 
-                users.add(new User(id, firstName, lastName, email, phoneNumber, address, zip,isAdmin,password));
+                users.add(new User(id, firstName, lastName, email, phoneNumber, address, zip, isAdmin, password));
             }
             } catch (SQLException e) {
             throw new DatabaseException(e, "Error retrieving users");

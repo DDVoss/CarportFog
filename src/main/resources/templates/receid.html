@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Fog - QuickByg</title>
+    <link href="/public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="page-wrapper">
+
+    <div th:insert="~{fragments/header :: header}"></div>
+
+    <main>
+        <div class="content-contaioner">
+            <div class="main-content-receid">
+                <div class="text-content">
+                    <h1>Tak for din bestilling!</h1>
+                    <hr class="success-line">
+                    <h2>Din forespørgsel er sendt til vores team, <br>
+                        du vil inden længe blive kontaktet af en medarbejder, med et tilbud</h2>
+                    <p>Du kan med sikkerhed lukke denne side eller kigge videre i vores udvalg</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div th:insert="~{fragments/footer :: footer}"></div>
+</div>
+</body>
+</html>
