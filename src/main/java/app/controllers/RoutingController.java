@@ -114,17 +114,5 @@ public class RoutingController {
             ctx.render("order-details.html");
         });
 
-       // get orderdetails
-        app.get("/customer/order", ctx -> {
-            User currentUser = ctx.sessionAttribute("currentUser");
-
-            int orderId = OrderMapper.getOrderIdByUserId(currentUser.getUserId());
-            Order order = OrderMapper.getAllOrderDetailsById(orderId);
-
-            ctx.attribute("order", order);
-            ctx.render("customer/order-details.html");
-        });
-
-
     }
 }
