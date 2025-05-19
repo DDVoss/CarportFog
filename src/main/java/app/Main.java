@@ -6,8 +6,8 @@ import app.controllers.RoutingController;
 import app.persistence.ConnectionPool;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
-
 import java.util.logging.Logger;
+
 
 public class Main {
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
