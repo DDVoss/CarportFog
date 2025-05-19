@@ -79,6 +79,7 @@ button:hover    {
     float: left;
     width: 70px;
     height: 70px;
+    padding: 0;
 }
 
 #navbar {
@@ -96,17 +97,22 @@ button:hover    {
     grid-area: logo;
     height: 70px;
     width: 70px;
+    padding: 0;
 }
 
 .nav-buttons {
     grid-area: buttons
+
 }
 
-.nav-login {
+#navbar .nav-login {
     grid-area: login;
+    padding-right: 30px;
     justify-self: end;
-    padding-right: 20px;
+
 }
+
+
 
 
 #navbar a {
@@ -115,7 +121,7 @@ button:hover    {
     display: block;
     color: #101820;
     text-align: center;
-    padding: 25px 18px;
+    padding: 25px 15px;
     text-decoration: none;
     font-size: 15px;
 }
@@ -211,8 +217,6 @@ footer {
     margin-top: 5px;
 }
 
-/*Form Styling*/
-
 .form-group {
     display: flex;
     flex-direction: column;
@@ -227,7 +231,6 @@ footer {
     flex-direction: column;
     flex-wrap: wrap;
     padding: 10px 10px;
-
     gap: 10px;
 }
 
@@ -255,8 +258,6 @@ input[type="text"], input[type="tel"], input[type="email"], input[type="number"]
     margin: 20px 0;
 }
 
-/*Multible step styling*/
-
 .step-format    {
     display: flex;
     flex-direction: row;
@@ -275,6 +276,7 @@ input[type="text"], input[type="tel"], input[type="email"], input[type="number"]
     position: relative;
     width: 10vw;
 }
+
 .step-wrapper p {
     margin-top: 1vw;
     font-size: 1vw;
@@ -288,7 +290,6 @@ input[type="text"], input[type="tel"], input[type="email"], input[type="number"]
     background-color: lightgray;
     position: relative;
 }
-
 
 .step {
     height: 3vw;
@@ -306,7 +307,6 @@ input[type="text"], input[type="tel"], input[type="email"], input[type="number"]
 .step.active {
     opacity: 1;
 }
-/* Mark the steps that are finished and valid: */
 
 .step-wrapper.finish .step {
     background-color: #003D76;
@@ -319,7 +319,6 @@ input[type="text"], input[type="tel"], input[type="email"], input[type="number"]
 }
 
 /* Radio button styling */
-
 input[type="radio"] {
     display: none;
 }
@@ -539,6 +538,24 @@ input[type="radio"]:checked + .option-label {
 }
 
 
+#navbar a.logo-link {
+
+    display: inline-block;
+    width: 70px;
+    height: 70px;
+    vertical-align: middle;
+    padding: 0;
+}
+
+.logo-link svg {
+    width: 70px;
+    height: 70px;
+    margin: 0;
+    padding: 0;
+
+
+}
+
 
 .order-table {
     width: 100%;
@@ -556,7 +573,7 @@ input[type="radio"]:checked + .option-label {
     margin-top: 1rem;
     font-weight: bold;
 }
-=======
+
 /* receid styling */
 body {
     background-color: #F5F5F3;
