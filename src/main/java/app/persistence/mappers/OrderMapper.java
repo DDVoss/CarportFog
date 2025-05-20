@@ -24,19 +24,18 @@ public class OrderMapper {
             ps.setInt(2, width);
             ps.setInt(3, length);
 
-            ps.executeUpdate();
-            try (ResultSet rs = ps.getGeneratedKeys()) {
-                if (rs.next()) {
-                    int orderId = rs.getInt(1);
-                    return new Order(orderId, width, length);
-                } else {
-                    throw new DatabaseException("No order ID returned.");
-                }
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())  {
+                int orderId = rs.getInt("order_id");
+                return new Order(orderId, width, length);
             }
-        } catch (SQLException e) {
-            throw new DatabaseException(e, "Failed to create order.");
+
+
+
+
+    } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-    }
 
 
 /*

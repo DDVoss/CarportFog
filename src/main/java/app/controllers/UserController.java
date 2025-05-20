@@ -54,6 +54,7 @@ public class UserController {
 
             //Calculator
             Calculator calculator = new Calculator(width, length, connectionPool);
+
             calculator.calcCarport(order);
 
             // Inserting calculated items in
