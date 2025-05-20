@@ -25,17 +25,17 @@ public class OrderMapper {
             ps.setInt(3, length);
 
             ResultSet rs = ps.executeQuery();
-            if (rs.next())  {
+            if (rs.next()) {
                 int orderId = rs.getInt("order_id");
                 return new Order(orderId, width, length);
             }
 
 
-
-
-    } catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return null;
+    }
 
 
 /*
