@@ -1,4 +1,4 @@
-package app.persistence.mappers;
+package app.persistence;
 
 import app.entities.Material;
 import app.exceptions.DatabaseException;
@@ -7,13 +7,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.ArrayList;
-
+import java.util.List;
 
 import static app.Main.connectionPool;
 
-public class MaterialsMapper {
+public class MaterialMapper {
 
     public static void createMaterial(Material material) throws SQLException, DatabaseException {
         String sql = "INSERT INTO materials " +
@@ -96,5 +95,3 @@ public class MaterialsMapper {
         return material;
     }
 }
-
-

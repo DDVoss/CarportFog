@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <title>Fog - Materialer</title>
+    <link href="../../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="page-wrapper">
+    <div th:insert="~{fragments/header :: header}"></div>
+
+
+    <div id="main-content">
+        <h1>Materialer</h1>
+        <p>Her kan du se en oversigt over alle tilgængelige materialer.</p>
+
+        <table class="materials-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Beskrivelse</th>
+                <th>Enhed</th>
+                <th>Type</th>
+                <th>Pris pr. enhed</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="material : ${materials}">
+                <td th:text="${material.materialId}">1</td>
+                <td th:text="${material.description}">Eksempel materiale</td>
+                <td th:text="${material.unit}">stk</td>
+                <td th:text="${material.type}">Træ</td>
+                <td th:text="${material.pricePrUnit}">100</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="form-button-align">
+            <a href="/adminpage" th:href="@{/adminpage}" class="button-link">Tilbage til admin</a>
+        </div>
+    </div>
+    </main>
+
+    <div th:insert="~{fragments/footer :: footer}"></div>
+</div>
+</body>
+</html>
