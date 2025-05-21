@@ -10,6 +10,8 @@ import app.services.Calculator;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 
+import java.sql.SQLException;
+
 public class UserController {
 
     public static Handler loginPost = ctx -> {
@@ -50,14 +52,14 @@ public class UserController {
         try {
             // Creating Customer and order
             int userId = UserMapper.createUser(firstName, lastName, phone, email, address, zip, password);
-            Order order = OrderMapper.createOrder(userId, width, length);
+            OrderMapper.createOrder(userId, width, length);
 
             //Calculator
             Calculator calculator = new Calculator(width, length, connectionPool);
 
-            calculator.calcCarport(order);
+            calculator.calcCarport();
 
-            // Inserting calculated items in
+            // Inserting the calculated items in database
             OrderMapper.insertBomItems(calculator.getBomItems(), connectionPool);
 
 
@@ -66,8 +68,13 @@ public class UserController {
         } catch (DatabaseException e)   {
             ctx.attribute("error", "Database fejl prøv venligst igen");
             ctx.render("summary.html"); /* Should be changed to the receipt site (receipt site not created yet)*/
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
+
     }
+
+
 
 
     public static Handler logout = ctx -> {

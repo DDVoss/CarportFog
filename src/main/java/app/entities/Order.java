@@ -1,5 +1,8 @@
 package app.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Order {
     private int orderId;
     private int totalPrice;
@@ -19,8 +22,7 @@ public class Order {
         this.user = user;
     }
 
-    public Order(int orderId, int width, int length) {
-        this.orderId = orderId;
+    public Order(int width, int length) {
         this.width = width;
         this.length = length;
     }

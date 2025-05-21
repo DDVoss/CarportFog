@@ -14,8 +14,9 @@ import static app.Main.connectionPool;
 public class OrderMapper {
 
 
-    public static Order createOrder(int userId, int width, int length) throws DatabaseException {
-        String sql = "INSERT INTO orders (user_id, width, length) VALUES (?, ?, ?)";
+    public static int createOrder(int userId, int width, int length) throws DatabaseException, SQLException {
+        String sql = "INSERT INTO orders (user_id, width, length) " +
+                "VALUES (?, ?, ?) RETURNING order_id";
 
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -24,17 +25,17 @@ public class OrderMapper {
             ps.setInt(2, width);
             ps.setInt(3, length);
 
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                int orderId = rs.getInt("order_id");
-                return new Order(orderId, width, length);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("order_id");
+                } else {
+                    throw new DatabaseException("no order ID returned from database");
+                }
+            } catch (SQLException e) {
+                throw new DatabaseException(e, "Error creating order");
             }
 
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
-        return null;
     }
 
 

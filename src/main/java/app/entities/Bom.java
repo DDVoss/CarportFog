@@ -1,11 +1,14 @@
 package app.entities;
 
+import java.util.List;
+
 public class Bom {
     private int bom_id;
     private int quantity;
     private String build_description;
     private Order order;
     private Variant variant;
+    private List <Bom> bomList;
 
 
     public Bom(int bom_id, int quantity, String build_description, Order order, Variant variant) {
@@ -38,7 +41,11 @@ public class Bom {
         return variant;
     }
 
-//setter
+    public List<Bom> getBomList() {
+        return bomList;
+    }
+
+    //setter
 
 
     public void setBom_id(int bom_id) {
