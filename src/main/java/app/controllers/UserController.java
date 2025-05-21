@@ -49,15 +49,16 @@ public class UserController {
         Integer width = Integer.parseInt(ctx.formParam("width"));
         Integer length = Integer.parseInt(ctx.formParam("length"));
 
+
         try {
             // Creating Customer and order
             int userId = UserMapper.createUser(firstName, lastName, phone, email, address, zip, password);
-            OrderMapper.createOrder(userId, width, length);
+            int orderId = OrderMapper.createOrder(userId, width, length);
 
             //Calculator
             Calculator calculator = new Calculator(width, length, connectionPool);
-
-            calculator.calcCarport();
+            Order newOrder = OrderMapper.getOrderById(orderId);
+            calculator.calcCarport(newOrder);
 
             // Inserting the calculated items in database
             OrderMapper.insertBomItems(calculator.getBomItems(), connectionPool);

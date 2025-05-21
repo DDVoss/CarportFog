@@ -29,21 +29,21 @@ public class Calculator {
 
     }
 
-    public void calcCarport() throws DatabaseException {
-        calcBeams();
-        calcRafters();
-        calcPost();
+    public void calcCarport(Order order) throws DatabaseException {
+        calcBeams(order);
+        calcRafters(order);
+        calcPost(order);
     }
 
     // Stolper
-    private   void  calcPost( ) throws DatabaseException {
+    private   void  calcPost(Order order) throws DatabaseException {
         // Antal Stolper
         int quantity = calcPostQuantity();
 
         // Finde længde på stolper - dvs variant
         List <Variant> variants = MaterialsMapper.getVariantsByMaterialIdAndMinLength(0, POSTS, connectionPool);
         Variant variant = variants.get(0);
-        Bom bom = new Bom(0, quantity, "Stolper nedgraves 90 cm. i jord", null, variant);
+        Bom bom = new Bom(0, quantity, "Stolper nedgraves 90 cm. i jord", order, variant);
         bomItems.add(bom);
 
     }
@@ -53,12 +53,12 @@ public class Calculator {
     }
 
     // Remme
-    private void calcBeams( ) {
+    private void calcBeams(Order order) {
 
     }
 
     // Spær
-    private void calcRafters( )   {
+    private void calcRafters(Order order)   {
 
     }
 
