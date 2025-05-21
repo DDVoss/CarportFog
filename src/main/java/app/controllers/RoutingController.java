@@ -1,8 +1,10 @@
 package app.controllers;
 
+import app.entities.Material;
 import app.entities.Order;
 import app.entities.User;
 import app.persistence.ConnectionPool;
+import app.persistence.MaterialMapper;
 import app.persistence.OrderMapper;
 import app.persistence.UserMapper;
 import io.javalin.Javalin;
@@ -16,6 +18,7 @@ import static app.controllers.UserController.createCustomerAndOrder;
 
 public class RoutingController {
     public static void addRoutes(Javalin app, ConnectionPool connectionPool)    {
+
         // render
         app.get("index", ctx -> ctx.render("index.html"));
         app.get("size", ctx -> ctx.render("size.html"));
@@ -129,7 +132,11 @@ public class RoutingController {
         });
 
 
-
+        app.get("/admin/materialer", ctx -> {
+            List<Material> allMaterials = MaterialMapper.getMaterials(); // adjust to your method name
+            ctx.attribute("materials", allMaterials);
+            ctx.render("admin-materials.html"); // Thymeleaf template
+        });
 
 
 

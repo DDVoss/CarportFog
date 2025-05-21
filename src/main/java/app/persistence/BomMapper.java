@@ -1,4 +1,4 @@
-package app.persistence.mappers;
+package app.persistence;
 import app.entities.Bom;
 import app.exceptions.DatabaseException;
 
