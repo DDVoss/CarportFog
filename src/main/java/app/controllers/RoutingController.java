@@ -61,7 +61,7 @@ public class RoutingController {
             Order order = new Order(orderId, totalPrice, status, width, length);
             OrderMapper.updateOrderDetails(order);
 
-            User user = new User(userId, firstName, lastName, email, phoneNumber, address, zip);
+            User user = new User(userId, firstName, lastName, phoneNumber, email, address, zip);
             UserMapper.updateUserDetails(user);
 
             ctx.redirect("/admin/orders/" + orderId);

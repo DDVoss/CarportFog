@@ -1,49 +1,72 @@
 package app.entities;
 
+import java.util.List;
+
 public class Bom {
     private int bom_id;
-    private int variant_id;
-    private int length;
-    private int order_id;
+    private int quantity;
+    private String build_description;
+    private Order order;
+    private Variant variant;
+    private List <Bom> bomList;
 
 
-    public Bom(int bom_id, int variant_id, int length, int order_id) {
+    public Bom(int bom_id, int quantity, String build_description, Order order, Variant variant) {
         this.bom_id = bom_id;
-        this.variant_id = variant_id;
-        this.length = length;
-        this.order_id = order_id;
+        this.quantity = quantity;
+        this.build_description = build_description;
+        this.order = order;
+        this.variant = variant;
     }
 
+    //getter
 
-    public int getBomId() {
+    public int getBom_id() {
         return bom_id;
     }
-    public void setBomId(int bom_id) {
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public String getBuild_description() {
+        return build_description;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public Variant getVariant() {
+        return variant;
+    }
+
+    public List<Bom> getBomList() {
+        return bomList;
+    }
+
+    //setter
+
+
+    public void setBom_id(int bom_id) {
         this.bom_id = bom_id;
     }
 
-
-    public int getVariantId() {
-        return variant_id;
-    }
-    public void setVariantId(int variant_id) {
-        this.variant_id = variant_id;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
-
-    public int getLength() {
-        return length;
-    }
-    public void setLength(int length) {
-        this.length = length;
+    public void setBuild_description(String build_description) {
+        this.build_description = build_description;
     }
 
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 
-    public int getOrderId() {
-        return order_id;
+    public void setVariant(Variant variant) {
+        this.variant = variant;
     }
-    public void setOrderId(int order_id) {
-        this.order_id = order_id;
-    }
+
 
 }

@@ -35,11 +35,11 @@ public class UserMapper {
                 throw new DatabaseException("Creating user failed, no rows affected");
 
             } try (ResultSet rs = ps.getGeneratedKeys())    {
-                if(rs.next())   {
-                    return rs.getInt(1);
-                } else {
-                    throw new DatabaseException("Creating user failed, no ID obtained");
-                }
+            if(rs.next())   {
+                return rs.getInt(1);
+            } else {
+                throw new DatabaseException("Creating user failed, no ID obtained");
+            }
         }
         } catch (SQLException e) {
             throw new DatabaseException(e, "Error inserting user");
@@ -101,9 +101,9 @@ public class UserMapper {
                 boolean isAdmin = rs.getBoolean("is_admin");
                 String password = rs.getString("password");
 
-                users.add(new User(id, firstName, lastName, email, phoneNumber, address, zip, isAdmin, password));
+                users.add(new User(id, firstName, lastName, phoneNumber, email, address, zip, isAdmin, password));
             }
-            } catch (SQLException e) {
+        } catch (SQLException e) {
             throw new DatabaseException(e, "Error retrieving users");
         }
         return users;
@@ -128,7 +128,7 @@ public class UserMapper {
                     String password = rs.getString("password");
 
 
-                    return new User(id, firstName, lastName, email, phoneNumber, address, zip,isAdmin,password);
+                    return new User(id, firstName, lastName, phoneNumber, email, address, zip,isAdmin,password);
                 }
             }
         } catch (SQLException e) {
