@@ -57,7 +57,7 @@ public class UserController {
 
             //Calculator
             Calculator calculator = new Calculator(width, length, connectionPool);
-            Order newOrder = OrderMapper.getOrderById(orderId);
+            Order newOrder = OrderMapper.getOrderDetailsById(orderId);
             calculator.calcCarport(newOrder);
 
             // Inserting the calculated items in database

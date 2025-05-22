@@ -62,7 +62,6 @@ public class OrderMapper {
  */
 
 
-
     public static void deleteOrder(int orderId) throws DatabaseException {
         String sql = "DELETE FROM orders WHERE order_id = ?";
 
@@ -170,22 +169,65 @@ public class OrderMapper {
         return bomList;
     }
 
-    public static void insertBomItems(List<Bom> bomItems, ConnectionPool connectionPool) throws DatabaseException   {
-        String sql = "INSERT INTO bom (order_id. variant_id, quantity, build_description) " +
+    public static void insertBomItems(List<Bom> bomItems, ConnectionPool connectionPool) throws DatabaseException {
+        String sql = "INSERT INTO bom (variant_id, order_id ,quantity, build_description) " +
                 "VALUES (?, ?, ?, ?)";
-        try (Connection connection = connectionPool.getConnection())    {
-            for (Bom bomItem : bomItems)  {
-                try (PreparedStatement ps = connection.prepareStatement(sql))   {
-                    ps.setInt(1, bomItem.getOrder().getOrderId());
-                    ps.setInt(2, bomItem.getVariant().getVariantId());
+        try (Connection connection = connectionPool.getConnection()) {
+            for (Bom bomItem : bomItems) {
+                try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                    ps.setInt(1, bomItem.getVariant().getVariantId());
+                    ps.setInt(2, bomItem.getOrder().getOrderId());
                     ps.setInt(3, bomItem.getQuantity());
                     ps.setString(4, bomItem.getBuild_description());
 
                     ps.executeUpdate();
                 }
             }
-        } catch (SQLException e)   {
+        } catch (SQLException e) {
             throw new DatabaseException("Could not create bomItem in the database");
+        }
+    }
+
+    public static Order getOrderDetailsById(int orderId) throws DatabaseException {
+
+        String sql = "SELECT * FROM orders INNER JOIN users ON orders.user_id = users.user_id WHERE orders.order_id = ?";
+
+        try (
+                Connection connection = connectionPool.getConnection();
+                PreparedStatement ps = connection.prepareStatement(sql);
+        ) {
+            ps.setInt(1, orderId);
+            try (ResultSet rs = ps.executeQuery()) {
+
+                if (rs.next()) {
+                    //user
+                    int userId = rs.getInt("user_id");
+                    String firstname = rs.getString("first_name");
+                    String lastname = rs.getString("last_name");
+                    String email = rs.getString("email");
+                    int phoneNumber = rs.getInt("phone_nr");
+                    String address = rs.getString("address");
+                    int zip = rs.getInt("zip");
+                    Boolean role = rs.getBoolean("is_admin");
+                    String password = rs.getString("password");
+                    //order
+                    int order_Id = rs.getInt("order_id");
+                    int totalPrice = rs.getInt("total_price");
+                    String orderDate = rs.getString("order_date");
+                    String orderStatus = rs.getString("order_status");
+                    int width = rs.getInt("width");
+                    int length = rs.getInt("length");
+
+                    User user = new User(userId, firstname, lastname, phoneNumber, email, address, zip, role, password);
+                    Order order = new Order(order_Id, totalPrice, orderDate, width, length, orderStatus, user);
+
+                    return order;
+                } else {
+                    throw new DatabaseException("Ordren med ID " + orderId + " blev ikke fundet");
+                }
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException(e, "Fejl ved hentning af ordrer med brugerinformationer");
         }
     }
 }

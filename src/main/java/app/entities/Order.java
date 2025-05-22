@@ -27,6 +27,8 @@ public class Order {
         this.length = length;
     }
 
+
+
     // getter
 
     public int getOrderId() {
