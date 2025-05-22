@@ -2,7 +2,6 @@ package app.persistence;
 
 import app.entities.Order;
 
-import app.entities.User;
 import app.exceptions.DatabaseException;
 
 import java.sql.*;
@@ -13,7 +12,7 @@ import static app.Main.connectionPool;
 
 public class OrderMapper {
 
-    // Create a new order and return the generated order_id
+
     public static int createOrder(int userId, int width, int length) throws DatabaseException, SQLException {
         String sql = "INSERT INTO orders (user_id, width, length) " +
                 "VALUES (?, ?, ?) RETURNING order_id";
@@ -34,7 +33,6 @@ public class OrderMapper {
             } catch (SQLException e) {
                 throw new DatabaseException(e, "Error creating order");
             }
-
         }
     }
 
@@ -102,59 +100,31 @@ public class OrderMapper {
                 orders.add(new Order(orderId, userId, totalPrice, orderDate, orderStatus, width, length));
             }
         } catch (SQLException e) {
-            throw new DatabaseException(e, "Fejl ved hentning af bruger");
+            throw new DatabaseException(e, "Error retrieving users");
         }
         return orders;
     }
 
-    public static List<Order> getAllOrdersWithUserByUserId(int userId) throws DatabaseException {
+    public static void insertBomItems(List<Bom> bomItems, ConnectionPool connectionPool) throws DatabaseException {
+        String sql = "INSERT INTO bom (variant_id, order_id ,quantity, build_description) " +
+                "VALUES (?, ?, ?, ?)";
+        try (Connection connection = connectionPool.getConnection()) {
+            for (Bom bomItem : bomItems) {
+                try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                    ps.setInt(1, bomItem.getVariant().getVariantId());
+                    ps.setInt(2, bomItem.getOrder().getOrderId());
+                    ps.setInt(3, bomItem.getQuantity());
+                    ps.setString(4, bomItem.getBuild_description());
 
-        String sql = "SELECT * FROM orders INNER JOIN users ON orders.user_id = users.user_id WHERE orders.user_id = ?";
-        List<Order> orders = new ArrayList<>();
-
-        try (
-                Connection connection = connectionPool.getConnection();
-                PreparedStatement ps = connection.prepareStatement(sql)
-        ) {
-            ps.setInt(1, userId);
-
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-
-                    String firstname = rs.getString("first_name");
-                    String lastname = rs.getString("last_name");
-                    String email = rs.getString("email");
-                    int phoneNumber = rs.getInt("phone_nr");
-                    String address = rs.getString("address");
-                    int zip = rs.getInt("zip");
-                    Boolean role = rs.getBoolean("is_admin");
-                    String password = rs.getString("password");
-
-
-                    int orderId = rs.getInt("order_id");
-                    int totalPrice = rs.getInt("total_price");
-                    String orderDate = rs.getString("order_date");
-                    String orderStatus = rs.getString("order_status");
-                    int width = rs.getInt("width");
-                    int length = rs.getInt("length");
-
-                    User user = new User(userId, firstname, lastname, email, phoneNumber, address, zip, role, password);
-                    Order order = new Order(orderId,orderDate,orderStatus,width,length,user);
-
-                    orders.add(order);
+                    ps.executeUpdate();
                 }
             }
-
         } catch (SQLException e) {
-            throw new DatabaseException(e, "Fejl ved hentning af bruger");
+            throw new DatabaseException("Could not create bomItem in the database");
         }
-
-        return orders;
     }
 
-
-
-    public static Order getAllOrderDetailsById(int orderId) throws DatabaseException {
+    public static Order getOrderDetailsById(int orderId) throws DatabaseException {
 
         String sql = "SELECT * FROM orders INNER JOIN users ON orders.user_id = users.user_id WHERE orders.order_id = ?";
 
@@ -163,7 +133,7 @@ public class OrderMapper {
                 PreparedStatement ps = connection.prepareStatement(sql);
         ) {
             ps.setInt(1, orderId);
-            try(ResultSet rs = ps.executeQuery()) {
+            try (ResultSet rs = ps.executeQuery()) {
 
                 if (rs.next()) {
                     //user
@@ -177,43 +147,25 @@ public class OrderMapper {
                     Boolean role = rs.getBoolean("is_admin");
                     String password = rs.getString("password");
                     //order
-                    int Id = rs.getInt("order_id");
+                    int order_Id = rs.getInt("order_id");
                     int totalPrice = rs.getInt("total_price");
                     String orderDate = rs.getString("order_date");
                     String orderStatus = rs.getString("order_status");
                     int width = rs.getInt("width");
                     int length = rs.getInt("length");
 
-                    User user = new User(userId, firstname, lastname, email, phoneNumber, address, zip, role, password);
-                    Order order = new Order(totalPrice, orderDate, orderStatus, width, length, user, userId, Id);
+                    User user = new User(userId, firstname, lastname, phoneNumber, email, address, zip, role, password);
+                    Order order = new Order(order_Id, totalPrice, orderDate, width, length, orderStatus, user);
 
                     return order;
-                }else {
+                } else {
                     throw new DatabaseException("Ordren med ID " + orderId + " blev ikke fundet");
                 }
             }
         } catch (SQLException e) {
             throw new DatabaseException(e, "Fejl ved hentning af ordrer med brugerinformationer");
         }
-
     }
-
-
-    //Delete order
-
-    public static void deleteOrder (int orderId) throws DatabaseException {
-        String sql = "DELETE FROM orders WHERE order_id = ?";
-
-        try (Connection connection = connectionPool.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-
-            ps.setInt(1, orderId);
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            throw new DatabaseException(e, "Error deleting order");
-        }
-    }
-    }
+}
 
 

@@ -96,8 +96,9 @@ public class MaterialMapper {
 
         return material;
     }
-
-
+<<<<<<<< HEAD:src/main/java/app/persistence/MaterialMapper.java
+}
+========
 
     public static List<Variant> getVariantsByMaterialIdAndMinLength (int minLength, int materialId, ConnectionPool connectionPool)  {
         List<Variant> productVariants = new ArrayList<>();
@@ -132,4 +133,4 @@ public class MaterialMapper {
         return productVariants;
     }
 }
-
+>>>>>>>> stykliste-beregner-Daniel:src/main/java/app/persistence/MaterialsMapper.java
