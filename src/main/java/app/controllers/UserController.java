@@ -1,10 +1,12 @@
 package app.controllers;
 
+import app.entities.Order;
 import app.entities.User;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.OrderMapper;
 import app.persistence.UserMapper;
+import app.services.Calculator;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 
@@ -78,8 +80,6 @@ public class UserController {
 
             // Inserting the calculated items in database
             OrderMapper.insertBomItems(calculator.getBomItems(), connectionPool);
-
-
 
             ctx.render("receipt.html");
         } catch (DatabaseException e)   {

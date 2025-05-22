@@ -6,7 +6,7 @@ import app.entities.Order;
 import app.entities.Variant;
 import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
-import app.persistence.mappers.MaterialsMapper;
+import app.persistence.MaterialMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +41,7 @@ public class Calculator {
         int quantity = calcPostQuantity();
 
         // Finde længde på stolper - dvs variant
-        List <Variant> variants = MaterialsMapper.getVariantsByMaterialIdAndMinLength(0, POSTS, connectionPool);
+        List <Variant> variants = MaterialMapper.getVariantsByMaterialIdAndMinLength(0, POSTS, connectionPool);
         Variant variant = variants.get(0);
         Bom bom = new Bom(0, quantity, "Stolper nedgraves 90 cm. i jord", order, variant);
         bomItems.add(bom);

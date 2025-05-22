@@ -23,12 +23,23 @@ public class User {
         this.password = password;
     }
 
-    public User(int userId, String firstName, String lastName, int phoneNumber, String email, String address, int zip, String password) {
+    public User(int userId, String firstName, String lastName, int phoneNumber, String email, String address, int zip) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.email = email;
+        this.address = address;
+        this.zip = zip;
+    }
+
+    public User(int userId, String firstName, String lastName, String email, int phoneNumber, String address, int zip, boolean isAdmin, String password) {
+        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.isAdmin = isAdmin;
         this.address = address;
         this.zip = zip;
         this.password = password;
