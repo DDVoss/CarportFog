@@ -6,6 +6,7 @@ import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.OrderMapper;
 import app.persistence.UserMapper;
+import app.services.Calculator;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 
@@ -52,8 +53,9 @@ public class UserController {
     };
 
 
+
     public static  void createCustomerAndOrder(Context ctx, ConnectionPool connectionPool)  {
-        // customer data
+        /* customer data */
         String firstName = ctx.formParam("fname");
         String lastName = ctx.formParam("lname");
         Integer phone = Integer.parseInt(ctx.formParam("phone"));
@@ -62,32 +64,41 @@ public class UserController {
         Integer zip = Integer.parseInt(ctx.formParam("zip"));
         String password = ctx.formParam("password");
 
-        // order data
+        /* order data */
         Integer width = Integer.parseInt(ctx.formParam("width"));
         Integer length = Integer.parseInt(ctx.formParam("length"));
 
+
         try {
-
+            // Creating Customer and order
             int userId = UserMapper.createUser(firstName, lastName, phone, email, address, zip, password);
-            OrderMapper.createOrder(userId, width, length);
+            int orderId = OrderMapper.createOrder(userId, width, length);
 
-            ctx.render("index.html");
+            //Calculator
+            Calculator calculator = new Calculator(width, length, connectionPool);
+            Order newOrder = OrderMapper.getOrderDetailsById(orderId);
+            calculator.calcCarport(newOrder);
+
+            // Inserting the calculated items in database
+            OrderMapper.insertBomItems(calculator.getBomItems(), connectionPool);
+
+            ctx.render("receipt.html");
         } catch (DatabaseException e)   {
             ctx.attribute("error", "Database fejl prøv venligst igen");
-
-
-
-            ctx.render("receipt.html"); // Should be changed to the receipt site (receipt site not created yet)*
-
+            ctx.render("summary.html"); /* Should be changed to the receipt site (receipt site not created yet)*/
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
     }
+
+
 
 
     public static Handler logout = ctx -> {
         ctx.req().getSession().invalidate();
         ctx.redirect("/login");
     };
-}
 
+
+}
