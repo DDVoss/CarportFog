@@ -202,8 +202,8 @@ public class OrderMapper {
                     int width = rs.getInt("width");
                     int length = rs.getInt("length");
 
-                    User user = new User(userId, firstname, lastname, phoneNumber, email, address, zip, role, password);
-                    Order order = new Order(orderId, totalPrice, orderDate, width, length, orderStatus, user);
+                    User user = new User(userId, firstname, lastname, email, phoneNumber, address, zip, role, password);
+                    Order order = new Order(orderId,orderDate,orderStatus,width,length,user);
 
                     orders.add(order);
                 }
