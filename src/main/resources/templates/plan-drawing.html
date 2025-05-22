@@ -50,7 +50,9 @@
       <!-- Fill form action if needed -->
       <form action="" method="post">
 
-        <!-- Plan drawing TBA *excited noises* -->
+        <div class="carport-svg">
+          <div th:utext="${svg}"></div>
+        </div>
 
         <div class="form-button-align">
           <a href="size.html" th:href="@{/size}" class="button-link">Tilbage</a>
