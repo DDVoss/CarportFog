@@ -2,6 +2,7 @@ package app.persistence;
 
 import app.entities.Order;
 
+import app.entities.User;
 import app.exceptions.DatabaseException;
 
 import java.sql.*;
@@ -97,7 +98,7 @@ public class OrderMapper {
                 int length = rs.getInt("length");
 
 
-                orders.add(new Order(orderId, userId, totalPrice, orderDate, orderStatus, width, length));
+                orders.add(new Order(orderId, totalPrice, orderDate, width, length, orderStatus, userId, null));
             }
         } catch (SQLException e) {
             throw new DatabaseException(e, "Error retrieving users");
