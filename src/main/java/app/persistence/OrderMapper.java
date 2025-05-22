@@ -199,7 +199,6 @@ public class OrderMapper {
     }
 
 
-    //Delete order
 
     public static void deleteOrder (int orderId) throws DatabaseException {
         String sql = "DELETE FROM orders WHERE order_id = ?";

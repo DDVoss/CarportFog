@@ -37,7 +37,6 @@ public class RoutingController {
             Map<String, String> sizeInfo = new HashMap<>();
             sizeInfo.put("width", ctx.formParam("width"));
             sizeInfo.put("length", ctx.formParam("length"));
-            sizeInfo.put("trapez", ctx.formParam("trapez"));
             ctx.sessionAttribute("sizeInfo", sizeInfo);
             ctx.redirect("/plan-drawing");
 
