@@ -275,7 +275,6 @@ public class OrderMapper {
             throw new DatabaseException(e, "Error deleting order");
         }
     }
-    }
 }
 
 
