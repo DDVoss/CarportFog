@@ -59,7 +59,29 @@ public class Calculator {
 
     // Spær
     private void calcRafters(Order order)   {
+        int quantity = calcRaftQuantity();
+        try {
 
+            List<Variant> variants = MaterialMapper.getVariantsByMaterialIdAndMinLength(0, POSTS, connectionPool);
+            // Her skal koden for de forskellige længde spær indsættes if statements skal nok bruges
+            if (length == 600) {
+                Variant variant = variants.get(1);
+                Bom bom = new Bom(1, quantity, "", order, variant);
+            } if (length > 480) {
+                Variant variant = variants.get(0);
+                Bom bom = new Bom(1, quantity, "", order, variant);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public int calcRaftQuantity()  {
+        double rafterWidth = 4.5;
+        double spacing = 55;
+
+        return (int) (Math.ceil((length - rafterWidth) / spacing) + 1);
     }
 
     public List<Bom> getBomItems()  {
