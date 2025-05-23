@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static app.controllers.UserController.createCustomerAndOrder;
+import static app.controllers.UserController.sendRequest;
 
 
 public class RoutingController {
@@ -21,7 +21,7 @@ public class RoutingController {
 
         // render
         app.get("index", ctx -> ctx.render("index.html"));
-        app.get("size", ctx -> ctx.render("size.html"));
+        //app.get("size", ctx -> ctx.render("size.html"));
         app.get("customer-information", ctx -> ctx.render("customer-information.html"));
         //app.get("plan-drawing", ctx -> ctx.render("plan-drawing.html"));
         app.get("login", ctx -> ctx.render("loginpage.html"));
@@ -32,7 +32,7 @@ public class RoutingController {
 
         //posts
         app.post("/login", UserController.loginPost);
-        app.post("createCustomerAndOrder", ctx -> createCustomerAndOrder(ctx, connectionPool));
+        app.post("createCustomerAndOrder", ctx -> sendRequest(ctx, connectionPool));
 
         app.post("/size", ctx -> {
             Map<String, String> sizeInfo = new HashMap<>();
