@@ -54,7 +54,7 @@ public class UserController {
 
 
 
-    public static  void createCustomerAndOrder(Context ctx, ConnectionPool connectionPool)  {
+    public static  void sendRequest(Context ctx, ConnectionPool connectionPool)  {
         /* customer data */
         String firstName = ctx.formParam("fname");
         String lastName = ctx.formParam("lname");

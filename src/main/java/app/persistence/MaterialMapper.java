@@ -103,7 +103,7 @@ public class MaterialMapper {
         List<Variant> productVariants = new ArrayList<>();
         String sql ="SELECT * FROM variants " +
                     "INNER JOIN materials m USING(material_id) " +
-                    "WHERE material_id = ? AND length >= ?";
+                    "WHERE material_id = ? AND length >= ? ORDER BY length";
         try (Connection connection = connectionPool.getConnection())    {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, materialId);

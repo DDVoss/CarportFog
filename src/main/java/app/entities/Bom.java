@@ -11,8 +11,7 @@ public class Bom {
     private List <Bom> bomList;
 
 
-    public Bom(int bom_id, int quantity, String build_description, Order order, Variant variant) {
-        this.bom_id = bom_id;
+    public Bom(int quantity, String build_description, Order order, Variant variant) {
         this.quantity = quantity;
         this.build_description = build_description;
         this.order = order;

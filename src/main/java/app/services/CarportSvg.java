@@ -35,7 +35,7 @@ public class CarportSvg {
     }
 
     private void addPost(){
-        for (double i = 100; i< 750; i += 100){
+        for (double i = 100; i< 750; i += 200){
             carportSvg.addRectangle(i, 35, 9.5, 9.5, "stroke:#000000; fill: #ffffff");
             carportSvg.addRectangle(i, 565, 9.5, 9.5, "stroke:#000000; fill: #ffffff" );
         }
