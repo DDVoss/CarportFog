@@ -116,7 +116,7 @@ public class OrderMapper {
                     ps.setInt(1, bomItem.getVariant().getVariantId());
                     ps.setInt(2, bomItem.getOrder().getOrderId());
                     ps.setInt(3, bomItem.getQuantity());
-                    ps.setString(4, bomItem.getBuild_description());
+                    ps.setString(4, bomItem.getBuildDescription());
 
                     ps.executeUpdate();
                 }
@@ -275,7 +275,7 @@ public class OrderMapper {
             throw new DatabaseException(e, "Error deleting order");
         }
     }
-    }
+}
 
 
 

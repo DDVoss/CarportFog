@@ -3,19 +3,32 @@ package app.entities;
 import java.util.List;
 
 public class Bom {
+    private Material material;
     private int bom_id;
     private int quantity;
-    private String build_description;
+    private String buildDescription;
     private Order order;
     private Variant variant;
     private List <Bom> bomList;
 
 
-    public Bom(int quantity, String build_description, Order order, Variant variant) {
+    public Bom(int quantity, String buildDescription, Order order, Variant variant) {
         this.quantity = quantity;
-        this.build_description = build_description;
+        this.buildDescription = buildDescription;
         this.order = order;
         this.variant = variant;
+    }
+
+    public Bom(int quantity, String buildDescription) {
+        this.quantity = quantity;
+        this.buildDescription = buildDescription;
+    }
+
+    public Bom(int quantity, String buildDescription, Variant variant, Material material) {
+        this.quantity = quantity;
+        this.buildDescription = buildDescription;
+        this.variant = variant;
+        this.material = material;
     }
 
     //getter
@@ -28,8 +41,8 @@ public class Bom {
         return quantity;
     }
 
-    public String getBuild_description() {
-        return build_description;
+    public String getBuildDescription() {
+        return buildDescription;
     }
 
     public Order getOrder() {
@@ -56,7 +69,7 @@ public class Bom {
     }
 
     public void setBuild_description(String build_description) {
-        this.build_description = build_description;
+        this.buildDescription = build_description;
     }
 
     public void setOrder(Order order) {
@@ -65,6 +78,14 @@ public class Bom {
 
     public void setVariant(Variant variant) {
         this.variant = variant;
+    }
+
+    public void setMaterial(Material material) {
+        this.material = material;
+    }
+
+    public Material getMaterial(){
+        return material;
     }
 
 
