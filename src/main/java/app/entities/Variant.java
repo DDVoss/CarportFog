@@ -4,11 +4,17 @@ public class Variant {
     private int variantId;
     private Material material;
     private int length;
+    private String description;
 
     public Variant(int variantId, Material material, int length) {
         this.variantId = variantId;
         this.material = material;
         this.length = length;
+    }
+
+    public Variant(int variantLength, String variantDescription) {
+        this.length= variantLength;
+        this.description = variantDescription;
     }
 
 
@@ -35,4 +41,12 @@ public class Variant {
     public void setLength(int length) {
         this.length = length;
     }
+    public void setDescription(String description) {
+        this.description = description;
+
+    }
+    public String getDescription() {
+        return description;
+    }
+
 }

@@ -17,6 +17,10 @@ public class Material {
 
     }
 
+    public Material(String materialUnit) {
+        this.unit = materialUnit;
+    }
+
 
     public int getMaterialId() {
         return materialId;

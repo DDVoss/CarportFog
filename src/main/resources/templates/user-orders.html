@@ -30,6 +30,12 @@
                 <p><strong>Dimensioner:</strong> <span th:text="${order.width + ' x ' + order.length + ' cm'}"></span></p>
                 <p><strong>Totalpris:</strong> <span th:text="${order.totalPrice + ' kr'}"></span></p>
 
+                <p>
+                    <a th:href="@{'/BOM/' + ${order.orderId}}">
+                        <button class="bom-button">Se Stykliste</button>
+                    </a>
+                </p>
+
                 <br><hr><br>
             </div>
         </div>

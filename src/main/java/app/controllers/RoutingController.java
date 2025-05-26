@@ -1,12 +1,15 @@
 package app.controllers;
 
+import app.entities.Bom;
 import app.entities.Material;
 import app.entities.Order;
 import app.entities.User;
+import app.exceptions.DatabaseException;
 import app.persistence.ConnectionPool;
 import app.persistence.MaterialMapper;
 import app.persistence.OrderMapper;
 import app.persistence.UserMapper;
+import app.persistence.BomMapper;
 import io.javalin.Javalin;
 
 import java.util.HashMap;
@@ -138,12 +141,19 @@ public class RoutingController {
             ctx.render("admin-materials.html"); // Thymeleaf template
         });
 
+        app.get("/BOM/{orderId}", ctx -> {
+            int orderId = Integer.parseInt(ctx.pathParam("orderId"));
+            try {
 
+                List<Bom> bomItems = BomMapper.getBomItemsByOrderId(orderId, connectionPool);
+                ctx.attribute("bomItems", bomItems);
+                ctx.render("bomsite.html");
+            } catch (DatabaseException e) {
+                ctx.attribute("error", "Kunne ikke hente materialelisten.");
 
+            }
+        });
     }
-    
-    
-    
-    
-    
 }
+
+
