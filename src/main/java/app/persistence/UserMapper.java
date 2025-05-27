@@ -12,7 +12,7 @@ import static app.Main.connectionPool;
 
 public class UserMapper {
 
-    public static int createUser(String firstName, String lastName, Integer phone, String email, String address, Integer zip, String password) throws DatabaseException {
+    public static int createUser(String firstName, String lastName, Integer phone, String email, String address, Integer zip) throws DatabaseException {
         String sql = "insert into users (first_name, last_name, phone_nr, email, address, zip, password) values (?,?,?,?,?,?,?)";
 
         String genPassword = generateRandomPassword(8);
