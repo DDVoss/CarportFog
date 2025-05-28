@@ -17,7 +17,6 @@ public class UserController {
     public static Handler loginPost = ctx -> {
         String email = ctx.formParam("email");
         String password = ctx.formParam("password");
-
         try {
             User user = UserMapper.getUserByEmail(email);
 
@@ -36,7 +35,6 @@ public class UserController {
                 ctx.status(400).result("Incorrect password");
                 return;
             }
-
             ctx.sessionAttribute("currentUser", user);
             ctx.sessionAttribute("userId", user.getUserId());
 
@@ -71,7 +69,7 @@ public class UserController {
 
         try {
             // Creating Customer and order
-            int userId = UserMapper.createUser(firstName, lastName, phone, email, address, zip, password);
+            int userId = UserMapper.createUser(firstName, lastName, phone, email, address, zip);
             int orderId = OrderMapper.createOrder(userId, width, length);
 
             //Calculator
