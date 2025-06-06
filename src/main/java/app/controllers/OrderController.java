@@ -9,6 +9,7 @@ import java.util.Locale;
 
 public class OrderController {
 
+    //Showing the Svg plan-drawing on plan-drawing.html via the routing controller
     public static void showOrder(Javalin app, Context ctx){
 
         Locale.setDefault(new Locale("US"));

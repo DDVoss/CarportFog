@@ -37,6 +37,7 @@ public class RoutingController {
         app.post("/login", UserController.loginPost);
         app.post("createCustomerAndOrder", ctx -> sendRequest(ctx, connectionPool));
 
+        //size input form parameters gets put inside a hashmap and saved in a session attribute
         app.post("/size", ctx -> {
             Map<String, String> sizeInfo = new HashMap<>();
             sizeInfo.put("width", ctx.formParam("width"));
@@ -46,6 +47,7 @@ public class RoutingController {
 
         });
 
+        // updates users and orders by overwriting information from order-details.html
         app.post("/admin/orderDetails/update", ctx -> {
             //order
             int orderId = Integer.parseInt(ctx.formParam("orderId"));
@@ -85,7 +87,7 @@ public class RoutingController {
             ctx.redirect("/summary");
         });
 
-
+       // Remembers the inputted size when navigating back to size.html
         app.get("/size", ctx -> {
             Map<String, Object> model = new HashMap<>();
             Map<String, String> sizeInfo = ctx.sessionAttribute("sizeInfo");
@@ -93,7 +95,7 @@ public class RoutingController {
             ctx.render("size.html", model);
         });
 
-
+        // Gets all inputted information from size and customer-information and renders summary.html
         app.get("summary", ctx -> {
             Map<String, Object> model = new HashMap<>();
             model.put("sizeInfo", ctx.sessionAttribute("sizeInfo"));
@@ -102,7 +104,7 @@ public class RoutingController {
         });
 
 
-        // get all orders
+        // Gets a list of all orders and renders see-all-orders.html
         app.get("/admin/orders", ctx -> {
             List<Order> orders = OrderMapper.getAllOrders();
             ctx.attribute("orders", orders);
@@ -110,8 +112,8 @@ public class RoutingController {
         });
 
 
+        // Gets specific order information from an orderId. Also gets all available status and renders order-details
         app.get("/admin/orders/{id}", ctx -> {
-
             int orderId = Integer.parseInt(ctx.pathParam("id"));
             Order order = OrderMapper.getAllOrderDetailsById(orderId);
             List<String> statuses = OrderMapper.getAllOrderStatuses();
@@ -122,6 +124,7 @@ public class RoutingController {
         });
 
 
+        // Gets specific order details from a user if  userid is filled out via a login screen
         app.get("/user/orders", ctx -> {
             Integer userId = ctx.sessionAttribute("userId");
             if (userId == null) {
@@ -135,12 +138,15 @@ public class RoutingController {
         });
 
 
+        // Gets a list of all materials and renders admin-materials.html
         app.get("/admin/materialer", ctx -> {
-            List<Material> allMaterials = MaterialMapper.getMaterials(); // adjust to your method name
+            List<Material> allMaterials = MaterialMapper.getMaterials();
             ctx.attribute("materials", allMaterials);
-            ctx.render("admin-materials.html"); // Thymeleaf template
+            ctx.render("admin-materials.html");
         });
 
+
+        // Gets specific bill of material items from an orderId
         app.get("/BOM/{orderId}", ctx -> {
             int orderId = Integer.parseInt(ctx.pathParam("orderId"));
             try {

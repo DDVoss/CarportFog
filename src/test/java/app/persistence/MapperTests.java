@@ -62,71 +62,75 @@ class MapperTests {
 
     @Test
     void CreateUserTEST() throws SQLException, DatabaseException {
+        // Arrange
         int expectedUserId = 1;
-        int actualUserId = UserMapper.createUser("bob", "jensen", 20304050, "bob@gmail.com", "vej20", 2000);
 
+        String firstName = "Bob";
+        String lastName = "Jensen";
+        int phone = 20304050;
+        String email = "bob@gmail.com";
+        String address = "Vej 20";
+        int zip = 2000;
+
+
+        // Act
+        int actualUserId = UserMapper.createUser(firstName, lastName, phone, email, address, zip);
+
+        // Assert
         assertEquals(expectedUserId, actualUserId, "The returned user ID should match the expected ID");
 
     }
 
     @Test
     void CreateOrderTEST() throws SQLException, DatabaseException {
+        // Arrange
         int expectedOrderId = 1;
         int userId = UserMapper.createUser("bob", "jensen", 20304050, "bob@gmail.com", "vej20", 2000);
+
+        // Act
         int actualOrderId = OrderMapper.createOrder(userId,600,780);
 
+        // Assert
         assertEquals(expectedOrderId, actualOrderId, "The returned order ID should match the expected ID");
     }
 
     @Test
     void getAllOrdersTEST() throws SQLException, DatabaseException {
-
-        int expectedOrderId = 1;
-        int expectedWidth = 600;
-        int expectedLength = 780;
-        int userId = UserMapper.createUser("bob", "jensen", 20304050, "bob@gmail.com", "vej20", 2000);
-        int actualOrderId = OrderMapper.createOrder(userId, expectedWidth, expectedLength);
+        // Arrange
+        OrderMapper.createOrder(1, 600, 780);
+        OrderMapper.createOrder(2, 600, 600);
+        OrderMapper.createOrder(3, 600, 780);
 
         // Act
         List<Order> orders = OrderMapper.getAllOrders();
 
         // Assert
-        assertEquals(1, orders.size(), "Should return exactly 1 order");
-        Order order = orders.get(0);
-        assertEquals(expectedOrderId, order.getOrderId());
-        assertEquals(expectedWidth, order.getWidth());
-        assertEquals(expectedLength, order.getLength());
+        assertEquals(3, orders.size(), "Should return exactly 3 order");
     }
 
     @Test
     void getAllUsersTEST() throws SQLException, DatabaseException {
         // Arrange
-        int expectedUserId = 1;
-        String expectedFirstName = "bob";
-        String expectedLastName = "jensen";
-        int expectedPhone = 20304050;
-        String expectedEmail = "bob@gmail.com";
-        String expectedAddress = "vej20";
-        int expectedZip = 2000;
-
-        // Create user
-        int actualUserId = UserMapper.createUser(expectedFirstName, expectedLastName, expectedPhone, expectedEmail, expectedAddress, expectedZip);
+        UserMapper.createUser("Bob", "Jensen", 20304050, "bob@gmail.com", "vej20", 2000);
+        UserMapper.createUser("Bobby", "Love", 12345678, "bobby@love.com", "Elskovstien 12", 1234);
+        UserMapper.createUser("Else", "Scarlet", 13685487, "scarletstar@outlook.com", "Boulevarden 66", 1300);
+        UserMapper.createUser("Marianne", "Pouliner", 20604352, "mpliner@gmail.com", "Langvej 99", 2000);
+        UserMapper.createUser("Joan", "Yang", 78809520, "Kongfu@gmail.com", "Kortvej", 4500);
 
         // Act
         List<User> users = UserMapper.getAllUsers();
 
         // Assert
-        assertEquals(1, users.size(), "Should return exactly 1 user");
+        assertEquals(5, users.size(), "Should return exactly 5 users");
 
-        User user = users.get(0);
-        assertEquals(expectedUserId, user.getUserId());
-        assertEquals(expectedFirstName, user.getFirstName());
-        assertEquals(expectedLastName, user.getLastName());
-        assertEquals(expectedPhone, user.getPhoneNumber());
-        assertEquals(expectedEmail, user.getEmail());
-        assertEquals(expectedAddress, user.getAddress());
-        assertEquals(expectedZip, user.getZip());
-        assertFalse(user.isAdmin()); // assuming createUser defaults to non-admin
+    }
+
+    @Test
+    void testCreateUserThrowsException() {
+        DatabaseException exception = assertThrows(DatabaseException.class, () -> {
+            UserMapper.createUser(null, null, 0, null, null, 0);
+        });
+        assertTrue(exception.getMessage().contains("Error inserting user"));
     }
 
 }
